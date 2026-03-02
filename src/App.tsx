@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom';
+import type { RouteRecord } from 'vite-react-ssg';
 import Layout from './components/layout/Layout';
 import Home from './pages/Home';
 import Cabinet from './pages/Cabinet';
@@ -12,26 +12,34 @@ import DroitConsommation from './pages/expertises/DroitConsommation';
 import DroitConstruction from './pages/expertises/DroitConstruction';
 import ModesAlternatifs from './pages/expertises/ModesAlternatifs';
 import MentionsLegales from './pages/MentionsLegales';
+import { RouteTracker } from './components/RouteTracker';
 
-function App() {
+function RootLayout() {
   return (
-      <Layout>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cabinet" element={<Cabinet />} />
-          <Route path="/equipe" element={<Equipe />} />
-          <Route path="/expertises" element={<Expertises />} />
-          <Route path="/expertises/droit-commercial" element={<DroitCommercial />} />
-          <Route path="/expertises/droit-societes" element={<DroitSocietes />} />
-          <Route path="/expertises/droit-numerique" element={<DroitNumerique />} />
-          <Route path="/expertises/droit-consommation" element={<DroitConsommation />} />
-          <Route path="/expertises/droit-construction" element={<DroitConstruction />} />
-          <Route path="/expertises/modes-alternatifs" element={<ModesAlternatifs />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/mentions-legales" element={<MentionsLegales />} />
-        </Routes>
-      </Layout>
+    <>
+      <RouteTracker />
+      <Layout />
+    </>
   );
 }
 
-export default App;
+export const routes: RouteRecord[] = [
+  {
+    path: '/',
+    element: <RootLayout />,
+    children: [
+      { index: true, element: <Home /> },
+      { path: 'cabinet', element: <Cabinet /> },
+      { path: 'equipe', element: <Equipe /> },
+      { path: 'expertises', element: <Expertises /> },
+      { path: 'expertises/droit-commercial', element: <DroitCommercial /> },
+      { path: 'expertises/droit-societes', element: <DroitSocietes /> },
+      { path: 'expertises/droit-numerique', element: <DroitNumerique /> },
+      { path: 'expertises/droit-consommation', element: <DroitConsommation /> },
+      { path: 'expertises/droit-construction', element: <DroitConstruction /> },
+      { path: 'expertises/modes-alternatifs', element: <ModesAlternatifs /> },
+      { path: 'contact', element: <Contact /> },
+      { path: 'mentions-legales', element: <MentionsLegales /> },
+    ],
+  },
+];

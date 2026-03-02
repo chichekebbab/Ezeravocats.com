@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+
 import compression from 'vite-plugin-compression';
 import imagePresets from 'vite-plugin-image-presets';
 
@@ -31,6 +32,24 @@ export default defineConfig({
   ],
   optimizeDeps: {
     exclude: ['lucide-react'],
+  },
+  ssgOptions: {
+    script: 'async',
+    formatting: 'minify',
+    includedRoutes: () => [
+      '/',
+      '/cabinet',
+      '/equipe',
+      '/expertises',
+      '/expertises/droit-commercial',
+      '/expertises/droit-societes',
+      '/expertises/droit-numerique',
+      '/expertises/droit-consommation',
+      '/expertises/droit-construction',
+      '/expertises/modes-alternatifs',
+      '/contact',
+      '/mentions-legales',
+    ],
   },
   build: {
     rollupOptions: {
