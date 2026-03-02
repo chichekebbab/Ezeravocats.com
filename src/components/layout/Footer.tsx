@@ -24,7 +24,7 @@ export default function Footer() {
             <div className="space-y-4">
               <p className="flex items-center text-white font-light">
                 <MapPin className="h-5 w-5 mr-3 text-white/50" />
-                66 rue de Monceau, 75008 Paris
+                15 rue de Lübeck, 75116 Paris
               </p>
               <p className="flex items-center text-white font-light">
                 <Mail className="h-5 w-5 mr-3 text-white/50" />
@@ -35,7 +35,7 @@ export default function Footer() {
               <p className="flex items-center text-white font-light">
                 <Phone className="h-5 w-5 mr-3 text-white/50" />
                 <a href="tel:0185092854" className="hover:underline">
-                  01 85 09 28 54
+                  01 44 05 32 90
                 </a>
               </p>
               <p className="flex items-center text-white font-light">

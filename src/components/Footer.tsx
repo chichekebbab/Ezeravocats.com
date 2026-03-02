@@ -19,7 +19,7 @@ export default function Footer() {
             <div className="space-y-4">
               <p className="flex items-center text-gray-400 font-light">
                 <MapPin className="h-5 w-5 mr-3 text-white/50" />
-                75008 Paris
+                15 rue de Lübeck, 75116 Paris
               </p>
             </div>
           </div>
