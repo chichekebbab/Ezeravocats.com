@@ -34,7 +34,7 @@ export default function Footer() {
               </p>
               <p className="flex items-center text-white font-light">
                 <Phone className="h-5 w-5 mr-3 text-white/50" />
-                <a href="tel:0185092854" className="hover:underline">
+                <a href="tel:0144053290" className="hover:underline">
                   01 44 05 32 90
                 </a>
               </p>
