@@ -1,0 +1,920 @@
+diff --git a/src/components/ExpertiseDetail.tsx b/src/components/ExpertiseDetail.tsx
+index b5b1c01..6c99d7d 100644
+--- a/src/components/ExpertiseDetail.tsx
++++ b/src/components/ExpertiseDetail.tsx
+@@ -2,6 +2,7 @@ import React from 'react';
+ import { Link } from 'react-router-dom';
+ import PageHeader from './PageHeader';
+ import SectionTitle from './SectionTitle';
++import ScrollReveal from './ScrollReveal';
+ 
+ interface ExpertiseDetailProps {
+   title: string;
+@@ -20,22 +21,28 @@ export default function ExpertiseDetail({ title, description, imagePath, content
+       />
+       
+       <div className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+-        <SectionTitle
+-          subtitle="Expertise"
+-          title={title}
+-          alignment="center"
+-        />
++        <ScrollReveal animation="fade-in">
++          <SectionTitle
++            subtitle="Expertise"
++            title={title}
++            alignment="center"
++          />
++        </ScrollReveal>
+ 
+         <div className="mt-12">
+           <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8 items-start">
+-            <img
+-              src={imagePath}
+-              alt={title}
+-              className="w-full h-auto rounded-lg shadow-lg"
+-            />
+-            <div className="space-y-4 text-gray-600 font-light leading-relaxed text-justify">
+-              {content}
+-            </div>
++            <ScrollReveal animation="slide-in-left">
++              <img
++                src={imagePath}
++                alt={title}
++                className="w-full h-auto rounded-lg shadow-lg"
++              />
++            </ScrollReveal>
++            <ScrollReveal animation="fade-in" delay={150}>
++              <div className="space-y-4 text-gray-600 font-light leading-relaxed text-justify">
++                {content}
++              </div>
++            </ScrollReveal>
+           </div>
+         </div>
+ 
+diff --git a/src/components/Hero.tsx b/src/components/Hero.tsx
+index b6eb4cb..ff0304f 100644
+--- a/src/components/Hero.tsx
++++ b/src/components/Hero.tsx
+@@ -1,4 +1,4 @@
+-import React from 'react';
++import React, { useEffect, useRef } from 'react';
+ import { ArrowRight } from 'lucide-react';
+ import { Link } from 'react-router-dom';
+ import Logo from './Logo';
+@@ -6,25 +6,44 @@ import homepageImage from '../assets/images/homepage.jpg';
+ import ezerLogo from '../assets/images/Ezer Logo/Ezer Inverted Color Transparent bg (1).svg';
+ 
+ export default function Hero() {
++  const containerRef = useRef<HTMLDivElement>(null);
++
++  useEffect(() => {
++    if (typeof window === 'undefined') return;
++    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++
++    const els = containerRef.current?.querySelectorAll('.hero-reveal');
++    if (!els) return;
++
++    if (prefersReducedMotion) {
++      els.forEach((el) => el.classList.add('revealed'));
++      return;
++    }
++
++    els.forEach((el, i) => {
++      setTimeout(() => el.classList.add('revealed'), 300 + i * 180);
++    });
++  }, []);
++
+   return (
+-      <section className="relative h-screen bg-primary bg-cover bg-center" style={{ backgroundImage: `url(${homepageImage})` }}>
++    <section className="relative h-screen bg-primary bg-cover bg-center" style={{ backgroundImage: `url(${homepageImage})` }}>
+       <div className="absolute inset-0 bg-black/50"></div>
+-      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
++      <div ref={containerRef} className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+         <div className="max-w-3xl">
+           <img
+             src={ezerLogo}
+             alt="Logo Ezer Avocats - Cabinet spécialisé en droit des affaires"
+             // @ts-ignore - React expects lowercase HTML attributes
+             fetchpriority="high"
+-            className="mb-8 w-[280px] opacity-100"
++            className="hero-reveal mb-8 w-[280px]"
+           />
+-          <p className="text-gray-300 text-xl mb-4 tracking-wider">VOS ENJEUX, NOTRE EXPERTISE</p>
+-          <h1 className="text-4xl md:text-6xl font-extralight text-white mb-8 leading-tight">
++          <p className="hero-reveal text-gray-300 text-xl mb-4 tracking-wider">VOS ENJEUX, NOTRE EXPERTISE</p>
++          <h1 className="hero-reveal text-4xl md:text-6xl font-extralight text-white mb-8 leading-tight">
+             Cabinet d'avocats à Paris dédié au contentieux des affaires
+           </h1>
+           <Link
+             to="/contact"
+-            className="inline-flex items-center px-8 py-4 text-sm tracking-wider font-light text-white border border-white hover:bg-white hover:text-primary transition-all duration-300"
++            className="hero-reveal inline-flex items-center px-8 py-4 text-sm tracking-wider font-light text-white border border-white hover:bg-white hover:text-primary transition-all duration-300"
+           >
+             PRENDRE RENDEZ-VOUS
+             <ArrowRight className="ml-3 h-4 w-4" />
+diff --git a/src/components/ScrollReveal.tsx b/src/components/ScrollReveal.tsx
+new file mode 100644
+index 0000000..c3a5b5a
+--- /dev/null
++++ b/src/components/ScrollReveal.tsx
+@@ -0,0 +1,35 @@
++import React, { ReactNode } from 'react';
++import useScrollReveal from '../hooks/useScrollReveal';
++
++type Animation = 'fade-in' | 'slide-in-left' | 'slide-in-right' | 'slide-in-bottom' | 'slide-in-top';
++
++interface ScrollRevealProps {
++  children: ReactNode;
++  animation?: Animation;
++  delay?: number;
++  className?: string;
++  as?: keyof JSX.IntrinsicElements;
++  threshold?: number;
++}
++
++export default function ScrollReveal({
++  children,
++  animation = 'fade-in',
++  delay = 0,
++  className = '',
++  as: Tag = 'div',
++  threshold,
++}: ScrollRevealProps) {
++  const ref = useScrollReveal<HTMLElement>({ threshold });
++
++  return (
++    // @ts-ignore — dynamic tag
++    <Tag
++      ref={ref}
++      className={`scroll-reveal ${animation} ${className}`}
++      style={delay ? { transitionDelay: `${delay}ms` } : undefined}
++    >
++      {children}
++    </Tag>
++  );
++}
+diff --git a/src/components/layout/Footer.tsx b/src/components/layout/Footer.tsx
+index 4ebdcbc..5b06586 100644
+--- a/src/components/layout/Footer.tsx
++++ b/src/components/layout/Footer.tsx
+@@ -1,6 +1,7 @@
+ import React from 'react';
+ import { Phone, Mail, MapPin, Clock, Linkedin } from 'lucide-react';
+ import Logo from '../Logo';
++import ScrollReveal from '../ScrollReveal';
+ import whiteLogo from '../../assets/images/Ezer Logo/Ezer White logo Transparent bg.svg';
+ 
+ export default function Footer() {
+@@ -8,60 +9,66 @@ export default function Footer() {
+     <footer className="bg-[rgb(113,145,170)]">
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+-          <div>
+-            <img
+-              src={whiteLogo}
+-              alt="Ezer Avocats"
+-              className="mb-6 h-12"
+-            />
+-            <p className="text-white font-light">
+-              Cabinet d'avocats dédié au contentieux des affaires
+-            </p>
+-          </div>
+-          
+-          <div>
+-            <h3 className="text-white text-sm tracking-wider mb-6">COORDONNÉES</h3>
+-            <div className="space-y-4">
+-              <p className="flex items-center text-white font-light">
+-                <MapPin className="h-5 w-5 mr-3 text-white/50" />
+-                15 rue de Lübeck, 75116 Paris
+-              </p>
+-              <p className="flex items-center text-white font-light">
+-                <Mail className="h-5 w-5 mr-3 text-white/50" />
+-                <a href="mailto:myriam.douillet@ezeravocats.com" className="hover:underline">
+-                  myriam.douillet@ezeravocats.com
+-                </a>
+-              </p>
+-              <p className="flex items-center text-white font-light">
+-                <Phone className="h-5 w-5 mr-3 text-white/50" />
+-                <a href="tel:0144053290" className="hover:underline">
+-                  01 44 05 32 90
+-                </a>
+-              </p>
+-              <p className="flex items-center text-white font-light">
+-                <Linkedin className="h-5 w-5 mr-3 text-white/50" />
+-                <a
+-                  href="https://www.linkedin.com/in/myriam-douillet-2387b2100/"
+-                  target="_blank"
+-                  rel="noopener noreferrer"
+-                  className="hover:underline"
+-                >
+-                  LinkedIn
+-                </a>
++          <ScrollReveal animation="fade-in">
++            <div>
++              <img
++                src={whiteLogo}
++                alt="Ezer Avocats"
++                className="mb-6 h-12"
++              />
++              <p className="text-white font-light">
++                Cabinet d'avocats dédié au contentieux des affaires
+               </p>
+             </div>
+-          </div>
++          </ScrollReveal>
++          
++          <ScrollReveal animation="fade-in" delay={100}>
++            <div>
++              <h3 className="text-white text-sm tracking-wider mb-6">COORDONNÉES</h3>
++              <div className="space-y-4">
++                <p className="flex items-center text-white font-light">
++                  <MapPin className="h-5 w-5 mr-3 text-white/50" />
++                  15 rue de Lübeck, 75116 Paris
++                </p>
++                <p className="flex items-center text-white font-light">
++                  <Mail className="h-5 w-5 mr-3 text-white/50" />
++                  <a href="mailto:myriam.douillet@ezeravocats.com" className="hover:underline">
++                    myriam.douillet@ezeravocats.com
++                  </a>
++                </p>
++                <p className="flex items-center text-white font-light">
++                  <Phone className="h-5 w-5 mr-3 text-white/50" />
++                  <a href="tel:0144053290" className="hover:underline">
++                    01 44 05 32 90
++                  </a>
++                </p>
++                <p className="flex items-center text-white font-light">
++                  <Linkedin className="h-5 w-5 mr-3 text-white/50" />
++                  <a
++                    href="https://www.linkedin.com/in/myriam-douillet-2387b2100/"
++                    target="_blank"
++                    rel="noopener noreferrer"
++                    className="hover:underline"
++                  >
++                    LinkedIn
++                  </a>
++                </p>
++              </div>
++            </div>
++          </ScrollReveal>
+           
+-          <div>
+-            <h3 className="text-white text-sm tracking-wider mb-6">HORAIRES</h3>
+-            <div className="flex items-start space-x-3 text-white font-light">
+-              <Clock className="h-5 w-5 text-white/50" />
+-              <div>
+-                <p>Lundi - Vendredi : 9h - 19h</p>
+-                <p className="mt-1">Sur rendez-vous uniquement</p>
++          <ScrollReveal animation="fade-in" delay={200}>
++            <div>
++              <h3 className="text-white text-sm tracking-wider mb-6">HORAIRES</h3>
++              <div className="flex items-start space-x-3 text-white font-light">
++                <Clock className="h-5 w-5 text-white/50" />
++                <div>
++                  <p>Lundi - Vendredi : 9h - 19h</p>
++                  <p className="mt-1">Sur rendez-vous uniquement</p>
++                </div>
+               </div>
+             </div>
+-          </div>
++          </ScrollReveal>
+         </div>
+         
+         <div className="mt-16 pt-8 border-t border-white/10 text-center">
+diff --git a/src/hooks/useScrollReveal.ts b/src/hooks/useScrollReveal.ts
+new file mode 100644
+index 0000000..8c3a69f
+--- /dev/null
++++ b/src/hooks/useScrollReveal.ts
+@@ -0,0 +1,44 @@
++import { useEffect, useRef } from 'react';
++
++interface ScrollRevealOptions {
++  threshold?: number;
++  rootMargin?: string;
++  once?: boolean;
++}
++
++export default function useScrollReveal<T extends HTMLElement = HTMLDivElement>(
++  options: ScrollRevealOptions = {}
++) {
++  const { threshold = 0.15, rootMargin = '0px 0px -40px 0px', once = true } = options;
++  const ref = useRef<T>(null);
++
++  useEffect(() => {
++    if (typeof window === 'undefined') return;
++
++    const el = ref.current;
++    if (!el) return;
++
++    // Respect prefers-reduced-motion
++    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
++    if (prefersReducedMotion) {
++      el.classList.add('revealed');
++      return;
++    }
++
++    const observer = new IntersectionObserver(
++      ([entry]) => {
++        if (entry.isIntersecting) {
++          el.classList.add('revealed');
++          if (once) observer.unobserve(el);
++        }
++      },
++      { threshold, rootMargin }
++    );
++
++    observer.observe(el);
++
++    return () => observer.disconnect();
++  }, [threshold, rootMargin, once]);
++
++  return ref;
++}
+diff --git a/src/index.css b/src/index.css
+index ffa0fd3..1cecbe4 100644
+--- a/src/index.css
++++ b/src/index.css
+@@ -8,6 +8,65 @@
+   text-decoration: underline;
+ }
+ 
++/* ── Scroll Reveal Animations ── */
++
++.scroll-reveal {
++  will-change: opacity, transform;
++  transition-property: opacity, transform;
++  transition-duration: 700ms;
++  transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
++}
++
++/* Initial hidden states */
++.scroll-reveal.fade-in {
++  opacity: 0;
++  transform: translateY(12px);
++}
++.scroll-reveal.slide-in-left {
++  opacity: 0;
++  transform: translateX(-48px);
++}
++.scroll-reveal.slide-in-right {
++  opacity: 0;
++  transform: translateX(48px);
++}
++.scroll-reveal.slide-in-bottom {
++  opacity: 0;
++  transform: translateY(48px);
++}
++.scroll-reveal.slide-in-top {
++  opacity: 0;
++  transform: translateY(-48px);
++}
++
++/* Revealed state (applied by IntersectionObserver) */
++.scroll-reveal.revealed {
++  opacity: 1;
++  transform: translate(0, 0);
++}
++
++/* Hero-specific entrance — slightly longer, more dramatic */
++.hero-reveal {
++  opacity: 0;
++  transform: translateY(24px);
++  transition: opacity 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94),
++              transform 900ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
++}
++.hero-reveal.revealed {
++  opacity: 1;
++  transform: translateY(0);
++}
++
++/* Respect accessibility */
++@media (prefers-reduced-motion: reduce) {
++  .scroll-reveal,
++  .hero-reveal {
++    opacity: 1 !important;
++    transform: none !important;
++    transition: none !important;
++  }
++}
++
+ body {
+   @apply text-[rgb(240,191,126)];
+ }
+diff --git a/src/pages/Cabinet.tsx b/src/pages/Cabinet.tsx
+index 7b3096d..2b6a841 100644
+--- a/src/pages/Cabinet.tsx
++++ b/src/pages/Cabinet.tsx
+@@ -1,6 +1,7 @@
+ import React, { useEffect } from 'react';
+ import { Scale } from 'lucide-react';
+ import PageHeader from '../components/PageHeader';
++import ScrollReveal from '../components/ScrollReveal';
+ import { useLocation } from 'react-router-dom';
+ import livresImage from '../assets/images/livres.jpg';
+ import cabinetImage from '../assets/images/Le Cabinet.jpg';
+@@ -29,42 +30,46 @@ export default function Cabinet() {
+       
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+-          <div>
+-            <h2 className="text-3xl font-light text-gray-900 mb-6">Un cabinet dédié au Contentieux des affaires</h2>
+-            
+-            <div className="space-y-6">
+-              <div className="mt-8">
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  EZER AVOCATS, cabinet dédié au droit des affaires, accompagne les entreprises en élaborant les stratégies judiciaires les plus adaptées à leurs situations. Le cabinet intervient devant l'ensemble des juridictions civiles et commerciales de France.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                   Forts de notre expérience, notre approche consiste à anticiper les risques, élaborer une stratégie adaptée à vos besoins et vous accompagner à chaque étape de vos litiges avec rigueur et proactivité afin de vous offrir un accompagnement  sur mesure pour la résolution de vos litiges.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  Nous privilégions une approche axée sur la résolution amiable des litiges, en nous efforçant de parvenir à une transaction lorsque cela est possible. Notre démarche proactive consiste à explorer les opportunités de règlement amiable à tous les stades d'une affaire du pré-contentieux jusqu'à l'exécution des décisions de justice. Nous sommes convaincus que la transaction permet de résoudre les différends de manière efficace, économique et confidentielle. Ainsi nous nous efforçons de trouver des solutions équilibrées qui préservent les intérêts de nos clients tout en évitant les coûts et les complexités associés aux procédures judiciaires.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  Nous savons néanmoins, lorsque cela est nécessaire, mettre en œuvre une stratégie contentieuse efficace reposant sur une expertise approfondie des outils procéduraux, combinée à des compétences solides en négociation visant d'une part à sécuriser les créances de nos clients et d'autre part à en poursuivre le paiement.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  Notre cabinet se distingue par sa capacité à offrir un accompagnement juridique personnalisé aux entreprises, aux actionnaires et aux dirigeants. Nous savons en particulier nous adapter aux besoins spécifiques des start-ups et jeunes entrepreneurs, en faisant preuve de flexibilité et de compréhension de leurs besoins.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  La plupart de nos prestations font l'objet d'une tarification d'honoraires forfaitaire unique et communiquée en amont de chaque dossier à l'issue d'un premier rendez-vous.
+-                </p>
+-                <p className="text-gray-600 mt-4 text-justify">
+-                  Au-delà de la simple prestation de services juridiques ; nous nous efforçons de tisser des partenariats durables en offrant des conseils stratégiques qui s'alignent sur les objectifs à long terme de nos clients.
+-                </p>
++          <ScrollReveal animation="fade-in">
++            <div>
++              <h2 className="text-3xl font-light text-gray-900 mb-6">Un cabinet dédié au Contentieux des affaires</h2>
++              
++              <div className="space-y-6">
++                <div className="mt-8">
++                  <p className="text-gray-600 mt-4 text-justify">
++                    EZER AVOCATS, cabinet dédié au droit des affaires, accompagne les entreprises en élaborant les stratégies judiciaires les plus adaptées à leurs situations. Le cabinet intervient devant l'ensemble des juridictions civiles et commerciales de France.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                     Forts de notre expérience, notre approche consiste à anticiper les risques, élaborer une stratégie adaptée à vos besoins et vous accompagner à chaque étape de vos litiges avec rigueur et proactivité afin de vous offrir un accompagnement  sur mesure pour la résolution de vos litiges.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                    Nous privilégions une approche axée sur la résolution amiable des litiges, en nous efforçant de parvenir à une transaction lorsque cela est possible. Notre démarche proactive consiste à explorer les opportunités de règlement amiable à tous les stades d'une affaire du pré-contentieux jusqu'à l'exécution des décisions de justice. Nous sommes convaincus que la transaction permet de résoudre les différends de manière efficace, économique et confidentielle. Ainsi nous nous efforçons de trouver des solutions équilibrées qui préservent les intérêts de nos clients tout en évitant les coûts et les complexités associés aux procédures judiciaires.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                    Nous savons néanmoins, lorsque cela est nécessaire, mettre en œuvre une stratégie contentieuse efficace reposant sur une expertise approfondie des outils procéduraux, combinée à des compétences solides en négociation visant d'une part à sécuriser les créances de nos clients et d'autre part à en poursuivre le paiement.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                    Notre cabinet se distingue par sa capacité à offrir un accompagnement juridique personnalisé aux entreprises, aux actionnaires et aux dirigeants. Nous savons en particulier nous adapter aux besoins spécifiques des start-ups et jeunes entrepreneurs, en faisant preuve de flexibilité et de compréhension de leurs besoins.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                    La plupart de nos prestations font l'objet d'une tarification d'honoraires forfaitaire unique et communiquée en amont de chaque dossier à l'issue d'un premier rendez-vous.
++                  </p>
++                  <p className="text-gray-600 mt-4 text-justify">
++                    Au-delà de la simple prestation de services juridiques ; nous nous efforçons de tisser des partenariats durables en offrant des conseils stratégiques qui s'alignent sur les objectifs à long terme de nos clients.
++                  </p>
++                </div>
+               </div>
+             </div>
+-          </div>
+-          <div className="relative aspect-square rounded-lg overflow-hidden">
+-            <img
+-              src={cabinetImage}
+-              alt="Le Cabinet"
+-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
+-            />
+-          </div>
++          </ScrollReveal>
++          <ScrollReveal animation="slide-in-right">
++            <div className="relative aspect-square rounded-lg overflow-hidden">
++              <img
++                src={cabinetImage}
++                alt="Le Cabinet"
++                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
++              />
++            </div>
++          </ScrollReveal>
+         </div>
+       </div>
+     </div>
+diff --git a/src/pages/Contact.tsx b/src/pages/Contact.tsx
+index 0f1d90a..424882a 100644
+--- a/src/pages/Contact.tsx
++++ b/src/pages/Contact.tsx
+@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
+ import { MessageSquare } from 'lucide-react';
+ import PageHeader from '../components/PageHeader';
+ import ContactForm from '../components/ContactForm';
++import ScrollReveal from '../components/ScrollReveal';
+ import { useLocation } from 'react-router-dom';
+ import bureauImage from '../assets/images/bureau.jpg';
+ 
+@@ -29,20 +30,23 @@ export default function Contact() {
+       
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+-          <div>
+-            <h2 className="text-3xl font-extralight tracking-wide mb-8 text-gray-900">Contactez-nous</h2>
+-            <ContactForm />
+-          </div>
+-          <div className="w-full">
+-            <h2 className="text-3xl font-extralight tracking-wide mb-8 text-gray-900">Prenez rendez-vous</h2>
+-            <iframe 
+-              src="https://zcal.co/i/eaFLKrTt?embed=1&embedType=iframe" 
+-              loading="lazy"
+-              style={{ border: 'none', minWidth: '320px', height: '800px', width: '100%' }}
+-              id="zcal-invite"
+-            />
+-          </div>
+-          
++          <ScrollReveal animation="fade-in">
++            <div>
++              <h2 className="text-3xl font-extralight tracking-wide mb-8 text-gray-900">Contactez-nous</h2>
++              <ContactForm />
++            </div>
++          </ScrollReveal>
++          <ScrollReveal animation="fade-in" delay={150}>
++            <div className="w-full">
++              <h2 className="text-3xl font-extralight tracking-wide mb-8 text-gray-900">Prenez rendez-vous</h2>
++              <iframe 
++                src="https://zcal.co/i/eaFLKrTt?embed=1&embedType=iframe" 
++                loading="lazy"
++                style={{ border: 'none', minWidth: '320px', height: '800px', width: '100%' }}
++                id="zcal-invite"
++              />
++            </div>
++          </ScrollReveal>
+         </div>
+       </div>
+     </div>
+diff --git a/src/pages/Equipe.tsx b/src/pages/Equipe.tsx
+index acb2e4c..3c76089 100644
+--- a/src/pages/Equipe.tsx
++++ b/src/pages/Equipe.tsx
+@@ -1,6 +1,7 @@
+ import React, { useEffect } from 'react';
+ import PageHeader from '../components/PageHeader';
+ import SectionTitle from '../components/SectionTitle';
++import ScrollReveal from '../components/ScrollReveal';
+ import { useLocation } from 'react-router-dom';
+ import quiSommesNousImage from '../assets/images/qui sommes nous.jpg';
+ import myriamImage from '../assets/images/myriam.jpeg';
+@@ -24,37 +25,41 @@ export default function Equipe() {
+       <aside className="py-32 bg-gray-50">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+-            <div>
+-              <SectionTitle
+-                subtitle=" "
+-                title="Maître Myriam Douillet Benaroch"
+-                alignment="left"
+-              />
+-              <div className="text-gray-600 mb-3 text-justify space-y-4">
+-                <p>
+-                  Avocate au Barreau de Paris depuis 2019, exerçant en contentieux des affaires, j'accompagne des entreprises françaises et internationales de toutes tailles dans la gestion de leurs litiges.
+-                </p>
+-                
+-                <p>
+-                  Mon parcours, au sein de cabinets pluridisciplinaires français et anglo-saxons à Paris (Bird & Bird et LPA Law) et en Californie (Bruns Legal), m'a permis de développer une expertise approfondie dans divers types de litiges civils et commerciaux : ruptures de relations contractuelles ou commerciales, contentieux post-cessions ou acquisitions,  litiges entre actionnaires, construction, risques industriels, différends spécifiques aux acteurs de l'économie numérique.
+-                </p>
+-                
+-                <p>
+-                  Je suis diplômée d'un Master I en Droit des affaires de l'Université Paris I – Panthéon Sorbonne (2016), et d'un Master II en Droit des activités numériques de l'Université Paris V – Descartes, réalisé en alternance au sein du département Tech & Data d'un cabinet français (Lawways).
+-                </p>
+-                
+-                <p>
+-                  Curieuse et créative, je m'engage à défendre les intérêts de mes clients devant les juridictions françaises dans les meilleures conditions possibles. Pragmatique, je privilégie la résolution amiable des litiges (négociation, médiation ou conciliation) lorsque cela est envisageable. Néanmoins, je n'hésite pas à adopter une approche procédurale et stratégique lorsque les parties ne sont pas disposées à négocier de bonne foi.
+-                </p>
++            <ScrollReveal animation="fade-in">
++              <div>
++                <SectionTitle
++                  subtitle=" "
++                  title="Maître Myriam Douillet Benaroch"
++                  alignment="left"
++                />
++                <div className="text-gray-600 mb-3 text-justify space-y-4">
++                  <p>
++                    Avocate au Barreau de Paris depuis 2019, exerçant en contentieux des affaires, j'accompagne des entreprises françaises et internationales de toutes tailles dans la gestion de leurs litiges.
++                  </p>
++                  
++                  <p>
++                    Mon parcours, au sein de cabinets pluridisciplinaires français et anglo-saxons à Paris (Bird & Bird et LPA Law) et en Californie (Bruns Legal), m'a permis de développer une expertise approfondie dans divers types de litiges civils et commerciaux : ruptures de relations contractuelles ou commerciales, contentieux post-cessions ou acquisitions,  litiges entre actionnaires, construction, risques industriels, différends spécifiques aux acteurs de l'économie numérique.
++                  </p>
++                  
++                  <p>
++                    Je suis diplômée d'un Master I en Droit des affaires de l'Université Paris I – Panthéon Sorbonne (2016), et d'un Master II en Droit des activités numériques de l'Université Paris V – Descartes, réalisé en alternance au sein du département Tech & Data d'un cabinet français (Lawways).
++                  </p>
++                  
++                  <p>
++                    Curieuse et créative, je m'engage à défendre les intérêts de mes clients devant les juridictions françaises dans les meilleures conditions possibles. Pragmatique, je privilégie la résolution amiable des litiges (négociation, médiation ou conciliation) lorsque cela est envisageable. Néanmoins, je n'hésite pas à adopter une approche procédurale et stratégique lorsque les parties ne sont pas disposées à négocier de bonne foi.
++                  </p>
++                </div>
+               </div>
+-            </div>
+-            <div className="relative h-[600px] overflow-hidden">
+-              <img
+-                src={myriamImage}
+-                alt="Maître Myriam Douillet Benaroch"
+-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
+-              />
+-            </div>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-right">
++              <div className="relative h-[600px] overflow-hidden">
++                <img
++                  src={myriamImage}
++                  alt="Maître Myriam Douillet Benaroch"
++                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
++                />
++              </div>
++            </ScrollReveal>
+           </div>
+         </div>
+       </aside>
+diff --git a/src/pages/Expertises.tsx b/src/pages/Expertises.tsx
+index b52b587..7495e4f 100644
+--- a/src/pages/Expertises.tsx
++++ b/src/pages/Expertises.tsx
+@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
+ import { Link, useLocation } from 'react-router-dom';
+ import SectionTitle from '../components/SectionTitle';
+ import PageHeader from '../components/PageHeader';
++import ScrollReveal from '../components/ScrollReveal';
+ import expertiseImage from '../assets/images/expertise.jpg';
+ 
+ export default function Expertises() {
+@@ -114,34 +115,37 @@ export default function Expertises() {
+       />
+       
+       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
+-        <SectionTitle
+-          subtitle="Nos Expertises"
+-          title="Domaines d'intervention"
+-          alignment="center"
+-        />
++        <ScrollReveal animation="fade-in">
++          <SectionTitle
++            subtitle="Nos Expertises"
++            title="Domaines d'intervention"
++            alignment="center"
++          />
++        </ScrollReveal>
+ 
+         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+-          {expertises.map((expertise) => (
+-            <Link
+-              key={expertise.id}
+-              to={expertise.link}
+-              className="group block"
+-            >
+-              <article className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 h-full">
+-                <div className="p-6 h-full flex flex-col">
+-                  {expertise.icon}
+-                  <h2 className="text-2xl font-light text-gray-900 mb-4 group-hover:text-primary transition-colors">
+-                    {expertise.title}
+-                  </h2>
+-                  <p className="text-gray-600 font-light leading-relaxed">
+-                    {expertise.description}
+-                  </p>
+-                  <div className="mt-4 text-primary font-medium group-hover:text-primary">
+-                    En savoir plus →
++          {expertises.map((expertise, index) => (
++            <ScrollReveal key={expertise.id} animation="slide-in-bottom" delay={index * 100}>
++              <Link
++                to={expertise.link}
++                className="group block"
++              >
++                <article className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 h-full">
++                  <div className="p-6 h-full flex flex-col">
++                    {expertise.icon}
++                    <h2 className="text-2xl font-light text-gray-900 mb-4 group-hover:text-primary transition-colors">
++                      {expertise.title}
++                    </h2>
++                    <p className="text-gray-600 font-light leading-relaxed">
++                      {expertise.description}
++                    </p>
++                    <div className="mt-4 text-primary font-medium group-hover:text-primary">
++                      En savoir plus →
++                    </div>
+                   </div>
+-                </div>
+-              </article>
+-            </Link>
++                </article>
++              </Link>
++            </ScrollReveal>
+           ))}
+         </div>
+       </div>
+diff --git a/src/pages/Home.tsx b/src/pages/Home.tsx
+index 91d9bee..5978a79 100644
+--- a/src/pages/Home.tsx
++++ b/src/pages/Home.tsx
+@@ -1,6 +1,7 @@
+ import React, { useEffect } from 'react';
+ import Hero from '../components/Hero';
+ import SectionTitle from '../components/SectionTitle';
++import ScrollReveal from '../components/ScrollReveal';
+ import { Link, useLocation } from 'react-router-dom';
+ import justiceImage from '../assets/images/myriam.jpeg';
+ 
+@@ -23,72 +24,86 @@ export default function Home() {
+       
+       <article className="py-32">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+-          <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-16 pt-2 text-center">
+-            Un cabinet d'avocats dédié au contentieux des affaires
+-          </h2>
++          <ScrollReveal animation="fade-in">
++            <h2 className="text-3xl md:text-4xl font-light text-gray-900 mb-16 pt-2 text-center">
++              Un cabinet d'avocats dédié au contentieux des affaires
++            </h2>
++          </ScrollReveal>
+           
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+-            <Link to="/expertises/droit-commercial" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-briefcase h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
+-                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT COMMERCIAL</h3>
+-            </Link>
+-            <Link to="/expertises/droit-societes" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-building2 h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
+-                <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
+-                <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
+-                <path d="M10 6h4"></path>
+-                <path d="M10 10h4"></path>
+-                <path d="M10 14h4"></path>
+-                <path d="M10 18h4"></path>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DES SOCIÉTÉS</h3>
+-            </Link>
+-            <Link to="/expertises/droit-numerique" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-codesandbox h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+-                <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
+-                <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
+-                <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
+-                <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+-                <line x1="12" y1="22.08" x2="12" y2="12"></line>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROITS ET ACTIFS NUMÉRIQUES</h3>
+-            </Link>
+-            <Link to="/expertises/droit-consommation" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-cart h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <circle cx="8" cy="21" r="1"></circle>
+-                <circle cx="19" cy="21" r="1"></circle>
+-                <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DE LA CONSOMMATION ET DE LA DISTRIBUTION</h3>
+-            </Link>
+-            <Link to="/expertises/droit-construction" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-construction h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <rect x="2" y="6" width="20" height="8" rx="1"></rect>
+-                <path d="M17 14v7"></path>
+-                <path d="M7 14v7"></path>
+-                <path d="M17 3v3"></path>
+-                <path d="M7 3v3"></path>
+-                <path d="M10 14 2.3 6.3"></path>
+-                <path d="m14 6 7.7 7.7"></path>
+-                <path d="m8 6 8 8"></path>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DE LA CONSTRUCTION - RISQUES INDUSTRIELS</h3>
+-            </Link>
+-            <Link to="/expertises/modes-alternatifs" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
+-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-handshake h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
+-                <path d="m11 17 2 2a1 1 0 1 0 3-3"></path>
+-                <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path>
+-                <path d="m21 3 1 11h-2"></path>
+-                <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path>
+-                <path d="M3 4h8"></path>
+-              </svg>
+-              <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">MODES ALTERNATIFS DE RÈGLEMENT DES LITIGES</h3>
+-            </Link>
++            <ScrollReveal animation="slide-in-bottom" delay={0}>
++              <Link to="/expertises/droit-commercial" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-briefcase h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <rect width="20" height="14" x="2" y="7" rx="2" ry="2"></rect>
++                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT COMMERCIAL</h3>
++              </Link>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-bottom" delay={100}>
++              <Link to="/expertises/droit-societes" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-building2 h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"></path>
++                  <path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"></path>
++                  <path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"></path>
++                  <path d="M10 6h4"></path>
++                  <path d="M10 10h4"></path>
++                  <path d="M10 14h4"></path>
++                  <path d="M10 18h4"></path>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DES SOCIÉTÉS</h3>
++              </Link>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-bottom" delay={200}>
++              <Link to="/expertises/droit-numerique" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-codesandbox h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
++                  <polyline points="7.5 4.21 12 6.81 16.5 4.21"></polyline>
++                  <polyline points="7.5 19.79 7.5 14.6 3 12"></polyline>
++                  <polyline points="21 12 16.5 14.6 16.5 19.79"></polyline>
++                  <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
++                  <line x1="12" y1="22.08" x2="12" y2="12"></line>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROITS ET ACTIFS NUMÉRIQUES</h3>
++              </Link>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-bottom" delay={300}>
++              <Link to="/expertises/droit-consommation" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-shopping-cart h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <circle cx="8" cy="21" r="1"></circle>
++                  <circle cx="19" cy="21" r="1"></circle>
++                  <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"></path>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DE LA CONSOMMATION ET DE LA DISTRIBUTION</h3>
++              </Link>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-bottom" delay={400}>
++              <Link to="/expertises/droit-construction" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-construction h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <rect x="2" y="6" width="20" height="8" rx="1"></rect>
++                  <path d="M17 14v7"></path>
++                  <path d="M7 14v7"></path>
++                  <path d="M17 3v3"></path>
++                  <path d="M7 3v3"></path>
++                  <path d="M10 14 2.3 6.3"></path>
++                  <path d="m14 6 7.7 7.7"></path>
++                  <path d="m8 6 8 8"></path>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">DROIT DE LA CONSTRUCTION - RISQUES INDUSTRIELS</h3>
++              </Link>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-bottom" delay={500}>
++              <Link to="/expertises/modes-alternatifs" className="group p-8 bg-white hover:bg-gray-50 transition-all duration-500 border border-gray-100 block">
++                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-handshake h-10 w-10 text-gray-900 mb-6 opacity-75 group-hover:scale-110 transition-all duration-500 mx-auto">
++                  <path d="m11 17 2 2a1 1 0 1 0 3-3"></path>
++                  <path d="m14 14 2.5 2.5a1 1 0 1 0 3-3l-3.88-3.88a3 3 0 0 0-4.24 0l-.88.88a1 1 0 1 1-3-3l2.81-2.81a5.79 5.79 0 0 1 7.06-.87l.47.28a2 2 0 0 0 1.42.25L21 4"></path>
++                  <path d="m21 3 1 11h-2"></path>
++                  <path d="M3 3 2 14l6.5 6.5a1 1 0 1 0 3-3"></path>
++                  <path d="M3 4h8"></path>
++                </svg>
++                <h3 className="text-xl font-light tracking-wide text-gray-900 text-center">MODES ALTERNATIFS DE RÈGLEMENT DES LITIGES</h3>
++              </Link>
++            </ScrollReveal>
+           </div>
+         </div>
+       </article>
+@@ -96,26 +111,30 @@ export default function Home() {
+       <aside className="py-32 bg-gray-50">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+-            <div>
+-              <SectionTitle
+-                subtitle="Notre cabinet"
+-                title="Un accompagnement sur mesure"
+-                alignment="left"
+-              />
+-              <p className="text-gray-600 mb-8 leading-relaxed font-light">
+-                EZER AVOCATS, cabinet dédié au droit des affaires, accompagne les entreprises en élaborant les stratégies judiciaires les plus adaptées à leurs situations. Le cabinet intervient devant l’ensemble des juridictions civiles et commerciales de France.
+-              </p>
+-              <Link to="/cabinet#top" className="text-sm tracking-wider text-gray-900 hover:text-gray-600 transition-colors duration-300">
+-                DÉCOUVRIR NOTRE CABINET →
+-              </Link>
+-            </div>
+-            <div className="relative h-[600px] overflow-hidden">
+-              <img
+-                src={justiceImage}
+-                alt="Salle de réunion"
+-                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
+-              />
+-            </div>
++            <ScrollReveal animation="fade-in">
++              <div>
++                <SectionTitle
++                  subtitle="Notre cabinet"
++                  title="Un accompagnement sur mesure"
++                  alignment="left"
++                />
++                <p className="text-gray-600 mb-8 leading-relaxed font-light">
++                  EZER AVOCATS, cabinet dédié au droit des affaires, accompagne les entreprises en élaborant les stratégies judiciaires les plus adaptées à leurs situations. Le cabinet intervient devant l'ensemble des juridictions civiles et commerciales de France.
++                </p>
++                <Link to="/cabinet#top" className="text-sm tracking-wider text-gray-900 hover:text-gray-600 transition-colors duration-300">
++                  DÉCOUVRIR NOTRE CABINET →
++                </Link>
++              </div>
++            </ScrollReveal>
++            <ScrollReveal animation="slide-in-right">
++              <div className="relative h-[600px] overflow-hidden">
++                <img
++                  src={justiceImage}
++                  alt="Salle de réunion"
++                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
++                />
++              </div>
++            </ScrollReveal>
+           </div>
+         </div>
+       </aside>

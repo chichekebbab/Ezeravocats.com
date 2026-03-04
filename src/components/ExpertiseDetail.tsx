@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PageHeader from './PageHeader';
 import SectionTitle from './SectionTitle';
+import ScrollReveal from './ScrollReveal';
 
 interface ExpertiseDetailProps {
   title: string;
@@ -20,22 +21,28 @@ export default function ExpertiseDetail({ title, description, imagePath, content
       />
       
       <div className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <SectionTitle
-          subtitle="Expertise"
-          title={title}
-          alignment="center"
-        />
+        <ScrollReveal animation="fade-in">
+          <SectionTitle
+            subtitle="Expertise"
+            title={title}
+            alignment="center"
+          />
+        </ScrollReveal>
 
         <div className="mt-12">
           <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] gap-8 items-start">
-            <img
-              src={imagePath}
-              alt={title}
-              className="w-full h-auto rounded-lg shadow-lg"
-            />
-            <div className="space-y-4 text-gray-600 font-light leading-relaxed text-justify">
-              {content}
-            </div>
+            <ScrollReveal animation="slide-in-left">
+              <img
+                src={imagePath}
+                alt={title}
+                className="w-full h-auto rounded-lg shadow-lg"
+              />
+            </ScrollReveal>
+            <ScrollReveal animation="fade-in" delay={150}>
+              <div className="space-y-4 text-gray-600 font-light leading-relaxed text-justify">
+                {content}
+              </div>
+            </ScrollReveal>
           </div>
         </div>
 

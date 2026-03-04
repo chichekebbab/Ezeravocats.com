@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import SectionTitle from '../components/SectionTitle';
 import PageHeader from '../components/PageHeader';
+import ScrollReveal from '../components/ScrollReveal';
 import expertiseImage from '../assets/images/expertise.jpg';
 
 export default function Expertises() {
@@ -114,34 +115,37 @@ export default function Expertises() {
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <SectionTitle
-          subtitle="Nos Expertises"
-          title="Domaines d'intervention"
-          alignment="center"
-        />
+        <ScrollReveal animation="fade-in">
+          <SectionTitle
+            subtitle="Nos Expertises"
+            title="Domaines d'intervention"
+            alignment="center"
+          />
+        </ScrollReveal>
 
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {expertises.map((expertise) => (
-            <Link
-              key={expertise.id}
-              to={expertise.link}
-              className="group block"
-            >
-              <article className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 h-full">
-                <div className="p-6 h-full flex flex-col">
-                  {expertise.icon}
-                  <h2 className="text-2xl font-light text-gray-900 mb-4 group-hover:text-primary transition-colors">
-                    {expertise.title}
-                  </h2>
-                  <p className="text-gray-600 font-light leading-relaxed">
-                    {expertise.description}
-                  </p>
-                  <div className="mt-4 text-primary font-medium group-hover:text-primary">
-                    En savoir plus →
+          {expertises.map((expertise, index) => (
+            <ScrollReveal key={expertise.id} animation="slide-in-bottom" delay={index * 100}>
+              <Link
+                to={expertise.link}
+                className="group block"
+              >
+                <article className="bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105 h-full">
+                  <div className="p-6 h-full flex flex-col">
+                    {expertise.icon}
+                    <h2 className="text-2xl font-light text-gray-900 mb-4 group-hover:text-primary transition-colors">
+                      {expertise.title}
+                    </h2>
+                    <p className="text-gray-600 font-light leading-relaxed">
+                      {expertise.description}
+                    </p>
+                    <div className="mt-4 text-primary font-medium group-hover:text-primary">
+                      En savoir plus →
+                    </div>
                   </div>
-                </div>
-              </article>
-            </Link>
+                </article>
+              </Link>
+            </ScrollReveal>
           ))}
         </div>
       </div>
