@@ -1,5 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
+import { readdirSync } from 'fs';
+import { join } from 'path';
 
 import compression from 'vite-plugin-compression';
 import imagePresets from 'vite-plugin-image-presets';
@@ -14,6 +16,19 @@ const sharpPreset = imagePresets({
     }
   },
 });
+
+// Collect article slugs at build time for SSG pre-rendering
+function getArticleRoutes(): string[] {
+  try {
+    const dir = join(process.cwd(), 'src/content/articles');
+    return readdirSync(dir)
+      .filter((f) => f.endsWith('.md'))
+      .map((f) => `/articles/${f.replace(/\.md$/, '')}`);
+  } catch {
+    return [];
+  }
+}
+
 
 export default defineConfig({
   plugins: [
@@ -47,6 +62,8 @@ export default defineConfig({
       '/expertises/modes-alternatifs',
       '/contact',
       '/mentions-legales',
+      '/articles',
+      ...getArticleRoutes(),
     ],
   },
   build: {

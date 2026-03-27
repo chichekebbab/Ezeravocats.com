@@ -12,6 +12,7 @@ export default function Navbar() {
     { name: 'Expertises', href: '/expertises' },
     { name: 'Le Cabinet', href: '/cabinet' },
     { name: 'Qui sommes-nous ?', href: '/equipe' },
+    { name: 'Articles', href: '/articles' },
     { name: 'Contact', href: '/contact' },
     { name: 'Prendre Rendez-vous', href: 'https://zcal.co/myriambenaroch/premiercontact' },
   ];

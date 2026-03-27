@@ -12,7 +12,10 @@
     "preview:prod": "vite preview --port 4173 --strictPort"
   },
   "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "gray-matter": "^4.0.3",
     "lucide-react": "^0.344.0",
+    "marked": "^17.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.28.2",

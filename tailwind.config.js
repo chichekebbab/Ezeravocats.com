@@ -18,9 +18,10 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif']
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
       }
     },
   },
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

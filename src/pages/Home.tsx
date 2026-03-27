@@ -4,6 +4,7 @@ import SectionTitle from '../components/SectionTitle';
 import ScrollReveal from '../components/ScrollReveal';
 import { Link, useLocation } from 'react-router-dom';
 import justiceImage from '../assets/images/myriam.jpeg';
+import SeoHead from '../components/SeoHead';
 
 export default function Home() {
   const location = useLocation();
@@ -19,8 +20,23 @@ export default function Home() {
     }
   }, [location]);
   return (
-    <div id="top">
-      <Hero />
+    <>
+      <SeoHead
+        title="Ezer Avocats"
+        description="Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris. Droit commercial, droit des sociétés, recouvrement de créances."
+        canonical="/"
+        schema={{
+          '@context': 'https://schema.org',
+          '@type': 'LegalService',
+          name: 'Ezer Avocats',
+          url: 'https://www.ezeravocats.com',
+          description: "Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris.",
+          address: { '@type': 'PostalAddress', streetAddress: '15 rue de Lübeck', addressLocality: 'Paris', postalCode: '75116', addressCountry: 'FR' },
+          email: 'myriam.douillet@ezeravocats.com',
+        }}
+      />
+      <div id="top">
+        <Hero />
       
       <article className="py-32">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -139,5 +155,6 @@ export default function Home() {
         </div>
       </aside>
     </div>
+    </>
   );
 }

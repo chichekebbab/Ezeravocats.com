@@ -12,6 +12,8 @@ import DroitConsommation from './pages/expertises/DroitConsommation';
 import DroitConstruction from './pages/expertises/DroitConstruction';
 import ModesAlternatifs from './pages/expertises/ModesAlternatifs';
 import MentionsLegales from './pages/MentionsLegales';
+import Articles from './pages/Articles';
+import ArticlePage from './pages/ArticlePage';
 import { RouteTracker } from './components/RouteTracker';
 
 function RootLayout() {
@@ -40,6 +42,8 @@ export const routes: RouteRecord[] = [
       { path: 'expertises/modes-alternatifs', element: <ModesAlternatifs /> },
       { path: 'contact', element: <Contact /> },
       { path: 'mentions-legales', element: <MentionsLegales /> },
+      { path: 'articles', element: <Articles /> },
+      { path: 'articles/:slug', element: <ArticlePage /> },
     ],
   },
 ];
