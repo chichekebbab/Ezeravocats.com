@@ -1,0 +1,1370 @@
+diff --git a/index.html b/index.html
+index 26135ac..26e5a4e 100644
+--- a/index.html
++++ b/index.html
+@@ -15,11 +15,7 @@
+     <meta property="og:description" content="Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial." />
+     <meta property="og:image" content="/src/assets/images/Ezer Logo/Ezer Without Slogan.png" />
+     <meta name="twitter:card" content="summary_large_image" />
+-    <title>Ezer Avocats</title>
+-    <meta name="description" content="Cabinet Ezer Avocats - Spécialistes en droit commercial, sociétés et contentieux complexe. Expertise juridique sur mesure pour entreprises et particuliers." />
+-    <meta name="keywords" content="cabinet avocat Paris, droit commercial, contentieux entreprise, droit des sociétés, litigation commercial, expertise juridique" />
+     <meta name="robots" content="index, follow" />
+-    <link rel="canonical" href="https://www.ezeravocats.com/" />
+     
+     <!-- Preload critical assets -->
+     <link rel="preload" href="/src/assets/images/Ezer Logo/Ezer Inverted Color Transparent bg (1).svg" as="image" fetchpriority="high" />
+diff --git a/package-lock.json b/package-lock.json
+index 8519138..e4cf253 100644
+--- a/package-lock.json
++++ b/package-lock.json
+@@ -8,7 +8,9 @@
+       "name": "ezer-avocat",
+       "version": "0.0.0",
+       "dependencies": {
++        "gray-matter": "^4.0.3",
+         "lucide-react": "^0.344.0",
++        "marked": "^17.0.5",
+         "react": "^18.3.1",
+         "react-dom": "^18.3.1",
+         "react-router-dom": "^6.28.2",
+@@ -511,7 +513,6 @@
+       "cpu": [
+         "ppc64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "aix"
+@@ -527,7 +528,6 @@
+       "cpu": [
+         "arm"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "android"
+@@ -543,7 +543,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "android"
+@@ -559,7 +558,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "android"
+@@ -575,7 +573,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "darwin"
+@@ -591,7 +588,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "darwin"
+@@ -607,7 +603,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "freebsd"
+@@ -623,7 +618,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "freebsd"
+@@ -639,7 +633,6 @@
+       "cpu": [
+         "arm"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -655,7 +648,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -671,7 +663,6 @@
+       "cpu": [
+         "ia32"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -687,7 +678,6 @@
+       "cpu": [
+         "loong64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -703,7 +693,6 @@
+       "cpu": [
+         "mips64el"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -719,7 +708,6 @@
+       "cpu": [
+         "ppc64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -735,7 +723,6 @@
+       "cpu": [
+         "riscv64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -751,7 +738,6 @@
+       "cpu": [
+         "s390x"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -767,7 +753,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -783,7 +768,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "netbsd"
+@@ -799,7 +783,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "openbsd"
+@@ -815,7 +798,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "sunos"
+@@ -831,7 +813,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -847,7 +828,6 @@
+       "cpu": [
+         "ia32"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -863,7 +843,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -1573,7 +1552,6 @@
+       "cpu": [
+         "arm"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "android"
+@@ -1586,7 +1564,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "android"
+@@ -1599,7 +1576,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "darwin"
+@@ -1612,7 +1588,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "darwin"
+@@ -1625,7 +1600,6 @@
+       "cpu": [
+         "arm"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1638,7 +1612,6 @@
+       "cpu": [
+         "arm"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1651,7 +1624,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1664,7 +1636,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1677,7 +1648,6 @@
+       "cpu": [
+         "ppc64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1690,7 +1660,6 @@
+       "cpu": [
+         "riscv64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1703,7 +1672,6 @@
+       "cpu": [
+         "s390x"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1716,7 +1684,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1729,7 +1696,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "linux"
+@@ -1742,7 +1708,6 @@
+       "cpu": [
+         "arm64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -1755,7 +1720,6 @@
+       "cpu": [
+         "ia32"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -1768,7 +1732,6 @@
+       "cpu": [
+         "x64"
+       ],
+-      "dev": true,
+       "optional": true,
+       "os": [
+         "win32"
+@@ -1818,8 +1781,7 @@
+     "node_modules/@types/estree": {
+       "version": "1.0.6",
+       "resolved": "https://registry.npmjs.org/@types/estree/-/estree-1.0.6.tgz",
+-      "integrity": "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==",
+-      "dev": true
++      "integrity": "sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw=="
+     },
+     "node_modules/@types/json-schema": {
+       "version": "7.0.15",
+@@ -1831,7 +1793,7 @@
+       "version": "22.10.7",
+       "resolved": "https://registry.npmjs.org/@types/node/-/node-22.10.7.tgz",
+       "integrity": "sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "undici-types": "~6.20.0"
+@@ -2312,7 +2274,7 @@
+       "version": "1.0.0",
+       "resolved": "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz",
+       "integrity": "sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "ISC"
+     },
+     "node_modules/brace-expansion": {
+@@ -2705,7 +2667,7 @@
+       "resolved": "https://registry.npmjs.org/critters/-/critters-0.0.24.tgz",
+       "integrity": "sha512-Oyqew0FGM0wYUSNqR0L6AteO5MpMoUU0rhKRieXeiKs+PmRTxiJMyaunYB2KF6fQ3dzChXKCpbFOEJx3OQ1v/Q==",
+       "deprecated": "Ownership of Critters has moved to the Nuxt team, who will be maintaining the project going forward. If you'd like to keep using Critters, please switch to the actively-maintained fork at https://github.com/danielroe/beasties",
+-      "dev": true,
++      "devOptional": true,
+       "license": "Apache-2.0",
+       "dependencies": {
+         "chalk": "^4.1.0",
+@@ -2721,7 +2683,7 @@
+       "version": "4.3.0",
+       "resolved": "https://registry.npmjs.org/ansi-styles/-/ansi-styles-4.3.0.tgz",
+       "integrity": "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "color-convert": "^2.0.1"
+@@ -2737,7 +2699,7 @@
+       "version": "4.1.2",
+       "resolved": "https://registry.npmjs.org/chalk/-/chalk-4.1.2.tgz",
+       "integrity": "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "ansi-styles": "^4.1.0",
+@@ -2754,7 +2716,7 @@
+       "version": "2.0.1",
+       "resolved": "https://registry.npmjs.org/color-convert/-/color-convert-2.0.1.tgz",
+       "integrity": "sha512-RRECPsj7iu/xb5oKYcsFHSppFNnsj/52OVTRKb4zP5onXwVF3zVmmToNcOfGC+CRDpfK/U584fMg38ZHCaElKQ==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "color-name": "~1.1.4"
+@@ -2767,14 +2729,14 @@
+       "version": "1.1.4",
+       "resolved": "https://registry.npmjs.org/color-name/-/color-name-1.1.4.tgz",
+       "integrity": "sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT"
+     },
+     "node_modules/critters/node_modules/has-flag": {
+       "version": "4.0.0",
+       "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-4.0.0.tgz",
+       "integrity": "sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "engines": {
+         "node": ">=8"
+@@ -2784,7 +2746,7 @@
+       "version": "7.2.0",
+       "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-7.2.0.tgz",
+       "integrity": "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "has-flag": "^4.0.0"
+@@ -2812,7 +2774,7 @@
+       "version": "5.1.0",
+       "resolved": "https://registry.npmjs.org/css-select/-/css-select-5.1.0.tgz",
+       "integrity": "sha512-nwoRF1rvRRnnCqqY7updORDsuqKzqYJ28+oSMaJMMgOauh3fvwHqMS7EZpIPqK8GL+g9mKxF1vP/ZjSeNjEVHg==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "dependencies": {
+         "boolbase": "^1.0.0",
+@@ -2829,7 +2791,7 @@
+       "version": "6.1.0",
+       "resolved": "https://registry.npmjs.org/css-what/-/css-what-6.1.0.tgz",
+       "integrity": "sha512-HTUrgRJ7r4dsZKU6GjmpfRK1O76h97Z8MfS1G0FozR+oF2kG6Vfe8JE6zwrkbxigziPHinCJ+gCPjA9EaBDtRw==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "engines": {
+         "node": ">= 6"
+@@ -2978,7 +2940,7 @@
+       "version": "2.0.0",
+       "resolved": "https://registry.npmjs.org/dom-serializer/-/dom-serializer-2.0.0.tgz",
+       "integrity": "sha512-wIkAryiqt/nV5EQKqQpo3SToSOV9J0DnbJqwK7Wv/Trc92zIAYZ4FlMu+JPFW1DfGFt81ZTCGgDEabffXeLyJg==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT",
+       "dependencies": {
+         "domelementtype": "^2.3.0",
+@@ -2993,7 +2955,7 @@
+       "version": "2.3.0",
+       "resolved": "https://registry.npmjs.org/domelementtype/-/domelementtype-2.3.0.tgz",
+       "integrity": "sha512-OLETBj6w0OsagBwdXnPdN0cnMfF9opN69co+7ZrbfPGrdpPVNBUj02spi6B1N7wChLQiPn4CSH/zJvXw56gmHw==",
+-      "dev": true,
++      "devOptional": true,
+       "funding": [
+         {
+           "type": "github",
+@@ -3006,7 +2968,7 @@
+       "version": "5.0.3",
+       "resolved": "https://registry.npmjs.org/domhandler/-/domhandler-5.0.3.tgz",
+       "integrity": "sha512-cgwlv/1iFQiFnU96XXgROh8xTeetsnJiDsTc7TYCLFd9+/WNkIqPTxiM/8pSd8VIrhXGTf1Ny1q1hquVqDJB5w==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "dependencies": {
+         "domelementtype": "^2.3.0"
+@@ -3022,7 +2984,7 @@
+       "version": "3.2.2",
+       "resolved": "https://registry.npmjs.org/domutils/-/domutils-3.2.2.tgz",
+       "integrity": "sha512-6kZKyUajlDuqlHKVX1w7gyslj9MPIXzIFiz/rGu35uC1wMi+kMhQwGhl4lt9unC9Vb9INnY9Z3/ZA3+FhASLaw==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "dependencies": {
+         "dom-serializer": "^2.0.0",
+@@ -3079,7 +3041,7 @@
+       "version": "4.5.0",
+       "resolved": "https://registry.npmjs.org/entities/-/entities-4.5.0.tgz",
+       "integrity": "sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "engines": {
+         "node": ">=0.12"
+@@ -3137,7 +3099,6 @@
+       "version": "0.21.5",
+       "resolved": "https://registry.npmjs.org/esbuild/-/esbuild-0.21.5.tgz",
+       "integrity": "sha512-mg3OPMV4hXywwpoDxu3Qda5xCKQi+vCTZq8S9J/EpkhB2HzKXq4SNFZE3+NK93JYxc8VMSep+lOUSC/RVKaBqw==",
+-      "dev": true,
+       "hasInstallScript": true,
+       "bin": {
+         "esbuild": "bin/esbuild"
+@@ -3396,6 +3357,19 @@
+         "url": "https://opencollective.com/eslint"
+       }
+     },
++    "node_modules/esprima": {
++      "version": "4.0.1",
++      "resolved": "https://registry.npmjs.org/esprima/-/esprima-4.0.1.tgz",
++      "integrity": "sha512-eGuFFw7Upda+g4p+QHvnW0RyTX/SVeJBDM/gCtMARO0cLuT2HcEKnTPvhjV6aGeqrCB/sbNop0Kszm0jsaWU4A==",
++      "license": "BSD-2-Clause",
++      "bin": {
++        "esparse": "bin/esparse.js",
++        "esvalidate": "bin/esvalidate.js"
++      },
++      "engines": {
++        "node": ">=4"
++      }
++    },
+     "node_modules/esquery": {
+       "version": "1.6.0",
+       "resolved": "https://registry.npmjs.org/esquery/-/esquery-1.6.0.tgz",
+@@ -3454,6 +3428,18 @@
+         "node": ">=6"
+       }
+     },
++    "node_modules/extend-shallow": {
++      "version": "2.0.1",
++      "resolved": "https://registry.npmjs.org/extend-shallow/-/extend-shallow-2.0.1.tgz",
++      "integrity": "sha512-zCnTtlxNoAiDc3gqY2aYAWFx7XWWiasuF2K8Me5WbN8otHKTUKBwjPtNpRs/rbUZm7KxWAaNj7P1a/p52GbVug==",
++      "license": "MIT",
++      "dependencies": {
++        "is-extendable": "^0.1.0"
++      },
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/fast-deep-equal": {
+       "version": "3.1.3",
+       "resolved": "https://registry.npmjs.org/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz",
+@@ -3639,7 +3625,6 @@
+       "version": "2.3.3",
+       "resolved": "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz",
+       "integrity": "sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==",
+-      "dev": true,
+       "hasInstallScript": true,
+       "optional": true,
+       "os": [
+@@ -3811,6 +3796,43 @@
+       "integrity": "sha512-EtKwoO6kxCL9WO5xipiHTZlSzBm7WLT627TqC/uVRd0HKmq8NXyebnNYxDoBi7wt8eTWrUrKXCOVaFq9x1kgag==",
+       "dev": true
+     },
++    "node_modules/gray-matter": {
++      "version": "4.0.3",
++      "resolved": "https://registry.npmjs.org/gray-matter/-/gray-matter-4.0.3.tgz",
++      "integrity": "sha512-5v6yZd4JK3eMI3FqqCouswVqwugaA9r4dNZB1wwcmrD02QkV5H0y7XBQW8QwQqEaZY1pM9aqORSORhJRdNK44Q==",
++      "license": "MIT",
++      "dependencies": {
++        "js-yaml": "^3.13.1",
++        "kind-of": "^6.0.2",
++        "section-matter": "^1.0.0",
++        "strip-bom-string": "^1.0.0"
++      },
++      "engines": {
++        "node": ">=6.0"
++      }
++    },
++    "node_modules/gray-matter/node_modules/argparse": {
++      "version": "1.0.10",
++      "resolved": "https://registry.npmjs.org/argparse/-/argparse-1.0.10.tgz",
++      "integrity": "sha512-o5Roy6tNG4SL/FOkCAN6RzjiakZS25RLYFrcMttJqbdd8BWrnA+fGz57iN5Pb06pvBGvl5gQ0B48dJlslXvoTg==",
++      "license": "MIT",
++      "dependencies": {
++        "sprintf-js": "~1.0.2"
++      }
++    },
++    "node_modules/gray-matter/node_modules/js-yaml": {
++      "version": "3.14.2",
++      "resolved": "https://registry.npmjs.org/js-yaml/-/js-yaml-3.14.2.tgz",
++      "integrity": "sha512-PMSmkqxr106Xa156c2M265Z+FTrPl+oxd/rgOQy2tijQeK5TxQ43psO1ZCwhVOSdnn+RzkzlRz/eY4BgJBYVpg==",
++      "license": "MIT",
++      "dependencies": {
++        "argparse": "^1.0.7",
++        "esprima": "^4.0.0"
++      },
++      "bin": {
++        "js-yaml": "bin/js-yaml.js"
++      }
++    },
+     "node_modules/has-flag": {
+       "version": "3.0.0",
+       "resolved": "https://registry.npmjs.org/has-flag/-/has-flag-3.0.0.tgz",
+@@ -3883,7 +3905,7 @@
+       "version": "8.0.2",
+       "resolved": "https://registry.npmjs.org/htmlparser2/-/htmlparser2-8.0.2.tgz",
+       "integrity": "sha512-GYdjWKDkbRLkZ5geuHs5NY1puJ+PXwP7+fHPRz06Eirsb9ugf6d8kkXav6ADhcODhFFPMIXyxkxSuMf3D6NCFA==",
+-      "dev": true,
++      "devOptional": true,
+       "funding": [
+         "https://github.com/fb55/htmlparser2?sponsor=1",
+         {
+@@ -4049,6 +4071,15 @@
+         "url": "https://github.com/sponsors/ljharb"
+       }
+     },
++    "node_modules/is-extendable": {
++      "version": "0.1.1",
++      "resolved": "https://registry.npmjs.org/is-extendable/-/is-extendable-0.1.1.tgz",
++      "integrity": "sha512-5BMULNob1vgFX6EjQw5izWDxrecWK9AM72rugNr0TFldMOi0fj6Jk+zeKIt0xGj4cEfQIJth4w3OKWOJ4f+AFw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/is-extglob": {
+       "version": "2.1.1",
+       "resolved": "https://registry.npmjs.org/is-extglob/-/is-extglob-2.1.1.tgz",
+@@ -4243,6 +4274,15 @@
+         "json-buffer": "3.0.1"
+       }
+     },
++    "node_modules/kind-of": {
++      "version": "6.0.3",
++      "resolved": "https://registry.npmjs.org/kind-of/-/kind-of-6.0.3.tgz",
++      "integrity": "sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/kolorist": {
+       "version": "1.8.0",
+       "resolved": "https://registry.npmjs.org/kolorist/-/kolorist-1.8.0.tgz",
+@@ -4326,6 +4366,18 @@
+         "react": "^16.5.1 || ^17.0.0 || ^18.0.0"
+       }
+     },
++    "node_modules/marked": {
++      "version": "17.0.5",
++      "resolved": "https://registry.npmjs.org/marked/-/marked-17.0.5.tgz",
++      "integrity": "sha512-6hLvc0/JEbRjRgzI6wnT2P1XuM1/RrrDEX0kPt0N7jGm1133g6X7DlxFasUIx+72aKAr904GTxhSLDrd5DIlZg==",
++      "license": "MIT",
++      "bin": {
++        "marked": "bin/marked.js"
++      },
++      "engines": {
++        "node": ">= 20"
++      }
++    },
+     "node_modules/math-intrinsics": {
+       "version": "1.1.0",
+       "resolved": "https://registry.npmjs.org/math-intrinsics/-/math-intrinsics-1.1.0.tgz",
+@@ -4449,7 +4501,6 @@
+       "version": "3.3.11",
+       "resolved": "https://registry.npmjs.org/nanoid/-/nanoid-3.3.11.tgz",
+       "integrity": "sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "github",
+@@ -4538,7 +4589,7 @@
+       "version": "2.1.1",
+       "resolved": "https://registry.npmjs.org/nth-check/-/nth-check-2.1.1.tgz",
+       "integrity": "sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "BSD-2-Clause",
+       "dependencies": {
+         "boolbase": "^1.0.0"
+@@ -4754,7 +4805,6 @@
+       "version": "1.1.1",
+       "resolved": "https://registry.npmjs.org/picocolors/-/picocolors-1.1.1.tgz",
+       "integrity": "sha512-xceH2snhtb5M9liqDsmEw56le376mTZkEX/jEb/RxNFyegNul7eNslCXP9FDj/Lcu0X8KEyMceP2ntpaHrDEVA==",
+-      "dev": true,
+       "license": "ISC"
+     },
+     "node_modules/picomatch": {
+@@ -4791,7 +4841,6 @@
+       "version": "8.5.6",
+       "resolved": "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz",
+       "integrity": "sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==",
+-      "dev": true,
+       "funding": [
+         {
+           "type": "opencollective",
+@@ -4903,7 +4952,7 @@
+       "version": "0.2.3",
+       "resolved": "https://registry.npmjs.org/postcss-media-query-parser/-/postcss-media-query-parser-0.2.3.tgz",
+       "integrity": "sha512-3sOlxmbKcSHMjlUXQZKQ06jOswE7oVkXPxmZdoB1r5l0q6gTFTQSHxNxOrCccElbW7dxNytifNEo8qidX2Vsig==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT"
+     },
+     "node_modules/postcss-nested": {
+@@ -5265,7 +5314,6 @@
+       "version": "4.24.0",
+       "resolved": "https://registry.npmjs.org/rollup/-/rollup-4.24.0.tgz",
+       "integrity": "sha512-DOmrlGSXNk1DM0ljiQA+i+o0rSLhtii1je5wgk60j49d1jHT5YYttBv1iWOnYSTG+fZZESUOSNiAl89SIet+Cg==",
+-      "dev": true,
+       "dependencies": {
+         "@types/estree": "1.0.6"
+       },
+@@ -5372,6 +5420,19 @@
+         "loose-envify": "^1.1.0"
+       }
+     },
++    "node_modules/section-matter": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/section-matter/-/section-matter-1.0.0.tgz",
++      "integrity": "sha512-vfD3pmTzGpufjScBh50YHKzEu2lxBWhVEHsNGoEXmCmn2hKGfeNLYMzCJpe8cD7gqX7TJluOVpBkAequ6dgMmA==",
++      "license": "MIT",
++      "dependencies": {
++        "extend-shallow": "^2.0.1",
++        "kind-of": "^6.0.0"
++      },
++      "engines": {
++        "node": ">=4"
++      }
++    },
+     "node_modules/semver": {
+       "version": "6.3.1",
+       "resolved": "https://registry.npmjs.org/semver/-/semver-6.3.1.tgz",
+@@ -5534,11 +5595,16 @@
+       "version": "1.2.1",
+       "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+       "integrity": "sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==",
+-      "dev": true,
+       "engines": {
+         "node": ">=0.10.0"
+       }
+     },
++    "node_modules/sprintf-js": {
++      "version": "1.0.3",
++      "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz",
++      "integrity": "sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==",
++      "license": "BSD-3-Clause"
++    },
+     "node_modules/string_decoder": {
+       "version": "1.3.0",
+       "resolved": "https://registry.npmjs.org/string_decoder/-/string_decoder-1.3.0.tgz",
+@@ -5645,6 +5711,15 @@
+         "node": ">=8"
+       }
+     },
++    "node_modules/strip-bom-string": {
++      "version": "1.0.0",
++      "resolved": "https://registry.npmjs.org/strip-bom-string/-/strip-bom-string-1.0.0.tgz",
++      "integrity": "sha512-uCC2VHvQRYu+lMh4My/sFNmF2klFymLX1wHJeXnbEJERpV/ZsVuonzerjfrGpIGF7LBVa1O7i9kjiWvJiFck8g==",
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
+     "node_modules/strip-json-comments": {
+       "version": "3.1.1",
+       "resolved": "https://registry.npmjs.org/strip-json-comments/-/strip-json-comments-3.1.1.tgz",
+@@ -5940,7 +6015,7 @@
+       "version": "6.20.0",
+       "resolved": "https://registry.npmjs.org/undici-types/-/undici-types-6.20.0.tgz",
+       "integrity": "sha512-Ny6QZ2Nju20vw1SRHe3d9jVu6gJ+4e3+MMpqu7pqE5HT6WsTSlce++GQmK5UXS8mzV8DSYHrQH+Xrf2jVcuKNg==",
+-      "dev": true,
++      "devOptional": true,
+       "license": "MIT"
+     },
+     "node_modules/universalify": {
+@@ -6011,7 +6086,6 @@
+       "version": "5.4.8",
+       "resolved": "https://registry.npmjs.org/vite/-/vite-5.4.8.tgz",
+       "integrity": "sha512-FqrItQ4DT1NC4zCUqMB4c4AZORMKIa0m8/URVCZ77OZ/QSNeJ54bU1vrFADbDsuwfIPcgknRkmqakQcgnL4GiQ==",
+-      "dev": true,
+       "dependencies": {
+         "esbuild": "^0.21.3",
+         "postcss": "^8.4.43",
+diff --git a/package.json b/package.json
+index 76a66dd..2e83b1e 100644
+--- a/package.json
++++ b/package.json
+@@ -12,7 +12,9 @@
+     "preview:prod": "vite preview --port 4173 --strictPort"
+   },
+   "dependencies": {
++    "gray-matter": "^4.0.3",
+     "lucide-react": "^0.344.0",
++    "marked": "^17.0.5",
+     "react": "^18.3.1",
+     "react-dom": "^18.3.1",
+     "react-router-dom": "^6.28.2",
+diff --git a/src/App.tsx b/src/App.tsx
+index c650230..7c58d5a 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -12,6 +12,8 @@ import DroitConsommation from './pages/expertises/DroitConsommation';
+ import DroitConstruction from './pages/expertises/DroitConstruction';
+ import ModesAlternatifs from './pages/expertises/ModesAlternatifs';
+ import MentionsLegales from './pages/MentionsLegales';
++import Articles from './pages/Articles';
++import ArticlePage from './pages/ArticlePage';
+ import { RouteTracker } from './components/RouteTracker';
+ 
+ function RootLayout() {
+@@ -40,6 +42,8 @@ export const routes: RouteRecord[] = [
+       { path: 'expertises/modes-alternatifs', element: <ModesAlternatifs /> },
+       { path: 'contact', element: <Contact /> },
+       { path: 'mentions-legales', element: <MentionsLegales /> },
++      { path: 'articles', element: <Articles /> },
++      { path: 'articles/:slug', element: <ArticlePage /> },
+     ],
+   },
+ ];
+diff --git a/src/components/SeoHead.tsx b/src/components/SeoHead.tsx
+new file mode 100644
+index 0000000..819d444
+--- /dev/null
++++ b/src/components/SeoHead.tsx
+@@ -0,0 +1,41 @@
++import React from 'react';
++import { Head } from 'vite-react-ssg';
++
++const BASE_TITLE = 'Ezer Avocats';
++const BASE_URL = 'https://www.ezeravocats.com';
++
++interface SeoHeadProps {
++  title: string;
++  description?: string;
++  canonical?: string;
++  ogTitle?: string;
++  ogDescription?: string;
++  schema?: object;
++}
++
++export default function SeoHead({
++  title,
++  description,
++  canonical,
++  ogTitle,
++  ogDescription,
++  schema,
++}: SeoHeadProps) {
++  const fullTitle = title === BASE_TITLE ? title : `${title} | ${BASE_TITLE}`;
++  const canonicalUrl = canonical ? `${BASE_URL}${canonical}` : undefined;
++
++  return (
++    <Head>
++      <title>{fullTitle}</title>
++      {description && <meta name="description" content={description} />}
++      <meta property="og:title" content={ogTitle ?? fullTitle} />
++      {description && (
++        <meta property="og:description" content={ogDescription ?? description} />
++      )}
++      {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
++      {schema && (
++        <script type="application/ld+json">{JSON.stringify(schema)}</script>
++      )}
++    </Head>
++  );
++}
+diff --git a/src/components/layout/Navbar.tsx b/src/components/layout/Navbar.tsx
+index 2f3b1cb..d7351b3 100644
+--- a/src/components/layout/Navbar.tsx
++++ b/src/components/layout/Navbar.tsx
+@@ -12,6 +12,7 @@ export default function Navbar() {
+     { name: 'Expertises', href: '/expertises' },
+     { name: 'Le Cabinet', href: '/cabinet' },
+     { name: 'Qui sommes-nous ?', href: '/equipe' },
++    { name: 'Articles', href: '/articles' },
+     { name: 'Contact', href: '/contact' },
+     { name: 'Prendre Rendez-vous', href: 'https://zcal.co/myriambenaroch/premiercontact' },
+   ];
+diff --git a/src/content/articles/remboursement-frais-avocat-recouvrement-l441-10-code-commerce.md b/src/content/articles/remboursement-frais-avocat-recouvrement-l441-10-code-commerce.md
+new file mode 100644
+index 0000000..2fc2d56
+--- /dev/null
++++ b/src/content/articles/remboursement-frais-avocat-recouvrement-l441-10-code-commerce.md
+@@ -0,0 +1,110 @@
++---
++title: "Remboursement intégral des frais d'avocat en recouvrement B2B : l'article L441-10, II du Code de commerce"
++description: "Comment obtenir le remboursement intégral de vos frais d'avocat en recouvrement B2B grâce à l'article L441-10 II C. com. Conditions, jurisprudence, mode d'emploi."
++date: 2026-03-27
++domaine: droit-commercial
++slug: remboursement-frais-avocat-recouvrement-l441-10-code-commerce
++---
++
++
++> L'article L441-10, II du Code de commerce est l'un des outils les plus méconnus du contentieux commercial. Il permet au créancier professionnel de récupérer l'intégralité de ses frais de recouvrement, y compris les honoraires d'avocat, sans plafond. Pourtant, rares sont les praticiens qui en font systématiquement usage.
++
++## Introduction
++
++Dans les contentieux relatifs au recouvrement de créances opposant deux professionnels, la question de l'indemnisation des frais exposés pour la défense du créancier est souvent réglée à la hâte, par le biais de l'article 700 du Code de procédure civile. Or, ce réflexe est, dans la plupart des cas, une erreur stratégique coûteuse.
++
++L'article 700 CPC confère en effet au juge un pouvoir souverain d'appréciation, tant sur le principe que sur le *quantum*. En pratique, dans les affaires de recouvrement de créances, les sommes allouées au titre de l'article 700 dépassent rarement 1 000 à 1 500 euros sans commune mesure avec les frais réellement engagés par le créancier pour obtenir le paiement de ce qui lui est dû.
++
++Il existe pourtant un mécanisme légal peu exploité, issu du droit commercial, qui permet d'obtenir le remboursement intégral des frais de recouvrement : honoraires d'avocat, honoraires de commissaire de justice ou encore frais interne de recouvrement administratif. C'est l'article L441-10, II du Code de commerce.
++
++## I. Le cadre légal : ce que dit l'article L441-10, II du Code de commerce
++
++L'article L441-10, II du Code de commerce dispose :
++
++*« Tout professionnel en situation de retard de paiement est de plein droit débiteur, à l'égard du créancier, d'une indemnité forfaitaire pour frais de recouvrement, dont le montant est fixé par décret. Lorsque les frais de recouvrement exposés sont supérieurs au montant de cette indemnité forfaitaire, le créancier peut demander une indemnisation complémentaire, sur justification. »*
++
++Ce texte institue un double mécanisme :
++
++- **Une indemnité forfaitaire** de 40 euros fixée par décret (article D441-5 C. com.), due de plein droit dès le premier jour de retard, sans mise en demeure préalable ;
++- **Une indemnisation complémentaire** lorsque les frais réellement exposés excèdent ce forfait, ce qui est systématiquement le cas dès lors qu'un avocat est mandaté.
++
++Deux conditions seulement sont requises : que le débiteur soit un **professionnel** (au sens du droit commercial, ce qui exclut les consommateurs) et que le créancier **justifie des frais exposés** par la production des pièces adéquates, en pratique les factures.
++
++## II. Quels frais sont couverts ?
++
++La DGCCRF a confirmé, par une note d'information n°2013-26 du 1er février 2013, que l'indemnité complémentaire a pour objet de couvrir à la fois les coûts administratifs et internes liés au retard de paiement, et les frais exposés pour la rémunération d'un avocat.
++
++En pratique, sont notamment recouvrables :
++
++- **Les honoraires d'avocat :** tant les honoraires de diligences sur justification des factures que les éventuels honoraires de résultat ainsi que l'ont confirmé plusieurs cours d'appel ;
++- **Les frais de commissaire de justice (ex-huissier) :** constats, tentatives de recouvrement...
++- **Les frais de recouvrement amiable :** courriers recommandés, mises en demeure, frais de gestion interne documentés ;
++- **Les frais de traduction ou d'interprétation :** dans les contentieux internationaux.
++
++La jurisprudence retient une appréciation particulièrement large de la notion de « frais de recouvrement », conformément à la lettre du texte qui ne pose aucun plafond et aucune restriction quant à la nature des frais, pourvu qu'ils soient justifiés.
++
++## III. La jurisprudence : une indemnisation intégrale confirmée, y compris pour l'honoraire de résultat
++
++### A. Un principe solidement ancré en jurisprudence
++
++Il est de jurisprudence constante qu'en application de l'article L441-10, II du Code de commerce, dès lors que le créancier produit les factures de son avocat, sa demande est dépourvue de contestation sérieuse et l'intégralité des frais exposés pour sa défense [doit] faire l'objet d'une indemnisation.
++
++Plusieurs cours d'appel affirment ce principe avec constance.
++
++### B. L'honoraire de résultat : une inclusion expressément validée
++
++L'une des applications les plus remarquables de cet article réside dans la prise en charge de l'honoraire de résultat. Pourtant, celui-ci étant par définition conditionné à l'issue favorable de la procédure, il devient exigible postérieurement au jugement.
++
++Les cours d'appel ont expressément validé son intégration dans l'assiette de l'indemnisation complémentaire, y compris lorsqu'il est postérieur au jugement, dès lors qu'il est prévu par la convention d'honoraires.
++
++## IV. La stratégie procédurale : ne jamais se priver de l'article 700 CPC
++
++L'enthousiasme suscité par l'article L441-10, II du Code de commerce ne doit pas conduire à négliger un risque procédural réel. Il n'est pas exclu que certains juges, par méconnaissance du texte ou par réserve à son égard, refusent d'en faire application ou en limiter la portée.
++
++Dans cette hypothèse, si la demande fondée sur l'article L441-10 est la seule demandée, le créancier se retrouve démuni : aucune indemnisation ne lui sera accordée au titre de ses frais de procédure, faute d'avoir sollicité le bénéfice de l'article 700 à titre subsidiaire.
++
++La prudence impose donc de formuler une demande au titre de l'article 700 à titre subsidiaire.
++
++Cette règle de prudence procédurale est d'autant plus importante que l'article L441-10 suppose, pour produire pleinement ses effets, une argumentation développée et des pièces bien constituées. Un dossier bien préparé minimisera le risque d'un refus judiciaire.
++
++## V. Conditions et mode d'emploi : comment mettre en œuvre l'article L441-10, II du Code de commerce
++
++### A. Vérifier les conditions d'application
++
++- **La créance doit être commerciale :** L'article L441-10 du Code de commerce s'applique aux transactions entre professionnels soumises aux délais de paiement du Code de commerce (articles L441-10 et suivants). Il ne s'applique pas aux créances de consommateurs.
++- **Le débiteur doit être en retard de paiement :** Aucune mise en demeure n'est requise : le retard s'apprécie par rapport à la date contractuelle ou légale de paiement.
++- **Le créancier doit être en mesure de justifier ses frais :** Factures d'avocat, notes d'honoraires, factures d'expert, devis acceptés, conventions d'honoraires : toutes ces pièces doivent être communiquées en temps utile.
++
++### B. Constituer le dossier de preuves
++
++Pour maximiser les chances d'indemnisation intégrale, le créancier doit produire :
++
++- Toutes les factures d'honoraires émises jusqu'à la clôture des débats ;
++- Les frais de commissaire de justice ;
++- Tout autre justificatif de débours exposé pour le recouvrement.
++
++## Conclusion
++
++L'article L441-10, II du Code de commerce est un outil procédural efficace dans les contentieux de recouvrement entre professionnels. Son exploitation systématique, associée à des pièces justificatives complètes, permet d'obtenir le remboursement intégral des frais engagés pour la défense du créancier y compris l'honoraire de résultat, ce qui a été confirmé par la jurisprudence.
++
++Sa mise en œuvre ne présente aucune difficulté particulière ; elle suppose simplement une anticipation dès la constitution du dossier, et une architecture des conclusions qui préserve, à titre subsidiaire, le bénéfice de l'article 700 CPC.
++
++*Dans un contexte où les coûts de défense pèsent lourdement sur les entreprises qui ne font que solliciter le paiement de sommes qui leurs sont légitimement dues, cet article est, à bien des égards, une mesure de justice élémentaire.*
++
++## Questions fréquentes
++
++**L'article L441-10 s'applique-t-il à toutes les créances commerciales ?**
++
++Non. Il s'applique uniquement aux transactions entre professionnels soumises aux délais de paiement du Code de commerce (art. L441-10 et s.). Les créances de consommateurs sont exclues.
++
++**Faut-il une mise en demeure préalable ?**
++
++Non. L'indemnité forfaitaire de 40 euros est due de plein droit dès le premier jour de retard. Pour l'indemnisation complémentaire, aucune mise en demeure n'est non plus requise : il suffit de justifier les frais exposés.
++
++**L'honoraire de résultat est-il remboursable ?**
++
++Oui, plusieurs cours d'appel l'ont expressément validé, y compris lorsqu'il est postérieur au jugement, dès lors qu'il est prévu par la convention d'honoraires.
++
++**Faut-il renoncer à l'article 700 CPC pour invoquer l'article L441-10 ?**
++
++Non, et c'est même déconseillé. Il faut toujours formuler une demande au titre de l'article 700 CPC à titre subsidiaire, pour pallier le risque d'un refus judiciaire du mécanisme L441-10.
+diff --git a/src/hooks/useMeta.ts b/src/hooks/useMeta.ts
+new file mode 100644
+index 0000000..559ddcb
+--- /dev/null
++++ b/src/hooks/useMeta.ts
+@@ -0,0 +1,78 @@
++import { useEffect } from 'react';
++
++interface MetaOptions {
++  title: string;
++  description?: string;
++  canonical?: string;
++  ogTitle?: string;
++  ogDescription?: string;
++  schema?: object;
++}
++
++const BASE_TITLE = 'Ezer Avocats';
++const BASE_URL = 'https://www.ezeravocats.com';
++
++export function useMeta({
++  title,
++  description,
++  canonical,
++  ogTitle,
++  ogDescription,
++  schema,
++}: MetaOptions) {
++  useEffect(() => {
++    const fullTitle = title === BASE_TITLE ? title : `${title} | ${BASE_TITLE}`;
++
++    // Title
++    document.title = fullTitle;
++
++    // Helper to upsert a meta tag
++    const setMeta = (selector: string, attr: string, value: string) => {
++      let el = document.querySelector<HTMLMetaElement>(selector);
++      if (!el) {
++        el = document.createElement('meta');
++        document.head.appendChild(el);
++      }
++      el.setAttribute(attr, value);
++    };
++
++    if (description) {
++      setMeta('meta[name="description"]', 'content', description);
++      setMeta('meta[property="og:description"]', 'content', ogDescription ?? description);
++    }
++
++    setMeta('meta[property="og:title"]', 'content', ogTitle ?? fullTitle);
++
++    // Canonical
++    const canonicalUrl = canonical
++      ? `${BASE_URL}${canonical}`
++      : `${BASE_URL}${window.location.pathname}`;
++    let link = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
++    if (!link) {
++      link = document.createElement('link');
++      link.rel = 'canonical';
++      document.head.appendChild(link);
++    }
++    link.href = canonicalUrl;
++
++    // Schema.org JSON-LD
++    const schemaId = 'schema-jsonld';
++    let schemaEl = document.getElementById(schemaId);
++    if (schema) {
++      if (!schemaEl) {
++        schemaEl = document.createElement('script');
++        schemaEl.id = schemaId;
++        (schemaEl as HTMLScriptElement).type = 'application/ld+json';
++        document.head.appendChild(schemaEl);
++      }
++      schemaEl.textContent = JSON.stringify(schema);
++    } else if (schemaEl) {
++      schemaEl.remove();
++    }
++
++    // Cleanup on unmount
++    return () => {
++      document.title = BASE_TITLE;
++    };
++  }, [title, description, canonical, ogTitle, ogDescription, schema]);
++}
+diff --git a/src/pages/ArticlePage.tsx b/src/pages/ArticlePage.tsx
+new file mode 100644
+index 0000000..2d14a67
+--- /dev/null
++++ b/src/pages/ArticlePage.tsx
+@@ -0,0 +1,115 @@
++import React from 'react';
++import { useParams, Navigate } from 'react-router-dom';
++import SeoHead from '../components/SeoHead';
++
++// Eager import: tout est disponible au moment du SSG (pas de useEffect)
++const articleModules = import.meta.glob('../content/articles/*.md', {
++  query: '?raw',
++  import: 'default',
++  eager: true,
++}) as Record<string, string>;
++
++interface ArticleFrontmatter {
++  title: string;
++  description: string;
++  date: string;
++  domaine: string;
++  slug: string;
++}
++
++function parseFrontmatter(raw: string): { meta: ArticleFrontmatter; content: string } {
++  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
++  if (!match) return { meta: {} as ArticleFrontmatter, content: raw };
++  const yamlBlock = match[1];
++  const content = match[2].trim();
++  const get = (key: string) => {
++    const m = yamlBlock.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?`, 'm'));
++    return m ? m[1].trim() : '';
++  };
++  return {
++    meta: { title: get('title'), description: get('description'), date: get('date'), domaine: get('domaine'), slug: get('slug') },
++    content,
++  };
++}
++
++function mdToHtml(md: string): string {
++  let html = md;
++  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
++  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
++  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
++  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
++  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
++  html = html.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
++  html = html.replace(/^- (.+)$/gm, '<li>$1</li>');
++  html = html.replace(/(<li>.*<\/li>\n?)+/g, (block) => `<ul>${block}</ul>`);
++  const blocks = html.split(/\n\n+/);
++  html = blocks.map((block) => {
++    const trimmed = block.trim();
++    if (!trimmed) return '';
++    if (/^<(h[1-6]|ul|ol|blockquote|hr|div|pre)/.test(trimmed)) return trimmed;
++    return `<p>${trimmed.replace(/\n/g, ' ')}</p>`;
++  }).join('\n');
++  return html;
++}
++
++export default function ArticlePage() {
++  const { slug } = useParams<{ slug: string }>();
++  const key = `../content/articles/${slug}.md`;
++  const raw = articleModules[key];
++
++  if (!raw) return <Navigate to="/articles" replace />;
++
++  const { meta, content } = parseFrontmatter(raw);
++  const htmlContent = mdToHtml(content);
++
++  const schema = {
++    '@context': 'https://schema.org',
++    '@type': 'Article',
++    headline: meta.title,
++    description: meta.description,
++    datePublished: meta.date,
++    dateModified: meta.date,
++    author: { '@type': 'Person', name: 'Myriam Douillet Benaroch', url: 'https://www.ezeravocats.com/equipe' },
++    publisher: { '@type': 'LegalService', name: 'Ezer Avocats', url: 'https://www.ezeravocats.com' },
++    mainEntityOfPage: { '@type': 'WebPage', '@id': `https://www.ezeravocats.com/articles/${slug}` },
++  };
++
++  const dateFormatted = meta.date
++    ? new Date(meta.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
++    : '';
++
++  return (
++    <>
++      <SeoHead title={meta.title} description={meta.description} canonical={`/articles/${slug}`} schema={schema} />
++
++      <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
++        <nav className="text-sm text-gray-400 mb-8 tracking-wide uppercase">
++          <a href="/" className="hover:text-gray-600 transition-colors">Accueil</a>
++          <span className="mx-2">/</span>
++          <a href="/articles" className="hover:text-gray-600 transition-colors">Articles</a>
++          {meta.domaine && <><span className="mx-2">/</span><span className="text-gray-600">{meta.domaine.replace(/-/g, ' ')}</span></>}
++        </nav>
++
++        <header className="mb-12">
++          {dateFormatted && <p className="text-xs tracking-widest uppercase text-gray-400 mb-4">{dateFormatted}</p>}
++          <h1 className="text-3xl md:text-4xl font-light text-gray-900 leading-tight mb-6">{meta.title}</h1>
++          <p className="text-lg text-gray-500 font-light leading-relaxed">{meta.description}</p>
++          <div className="mt-8 border-t border-gray-100" />
++        </header>
++
++        <div
++          className="prose prose-lg max-w-none prose-headings:font-light prose-headings:text-gray-900 prose-p:text-gray-700 prose-p:leading-relaxed prose-strong:font-medium prose-strong:text-gray-900 prose-blockquote:border-l-2 prose-blockquote:border-gray-200 prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-500 prose-li:text-gray-700 prose-a:text-gray-900 prose-a:underline"
++          dangerouslySetInnerHTML={{ __html: htmlContent }}
++        />
++
++        <footer className="mt-16 pt-8 border-t border-gray-100">
++          <p className="text-sm text-gray-400 italic">
++            Cet article est rédigé à titre informatif. Il ne constitue pas un conseil juridique.
++            Pour toute question,{' '}
++            <a href="/contact" className="text-gray-700 underline hover:text-gray-900 transition-colors">contactez le cabinet</a>.
++          </p>
++        </footer>
++      </div>
++    </>
++  );
++}
+diff --git a/src/pages/Articles.tsx b/src/pages/Articles.tsx
+new file mode 100644
+index 0000000..78e0ddc
+--- /dev/null
++++ b/src/pages/Articles.tsx
+@@ -0,0 +1,88 @@
++import React from 'react';
++import { Link } from 'react-router-dom';
++import SeoHead from '../components/SeoHead';
++import PageHeader from '../components/PageHeader';
++import livresImage from '../assets/images/livres.jpg';
++
++const articleModules = import.meta.glob('../content/articles/*.md', {
++  query: '?raw',
++  import: 'default',
++  eager: true,
++}) as Record<string, string>;
++
++interface ArticleMeta {
++  title: string; description: string; date: string; domaine: string; slug: string;
++}
++
++function parseFrontmatter(raw: string): ArticleMeta {
++  const match = raw.match(/^---\n([\s\S]*?)\n---/);
++  if (!match) return {} as ArticleMeta;
++  const yaml = match[1];
++  const get = (key: string) => {
++    const m = yaml.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?`, 'm'));
++    return m ? m[1].trim() : '';
++  };
++  return { title: get('title'), description: get('description'), date: get('date'), domaine: get('domaine'), slug: get('slug') };
++}
++
++const DOMAINE_LABELS: Record<string, string> = {
++  'droit-commercial': 'Droit commercial',
++  'droit-societes': 'Droit des sociétés',
++  'droit-immobilier': 'Droit immobilier',
++  'droit-social': 'Droit social',
++  'droit-numerique': 'Droit du numérique',
++  'droit-construction': 'Droit de la construction',
++};
++
++const articles: ArticleMeta[] = Object.values(articleModules)
++  .map((raw) => parseFrontmatter(raw))
++  .filter((m) => m.slug)
++  .sort((a, b) => (a.date < b.date ? 1 : -1));
++
++export default function Articles() {
++  return (
++    <>
++      <SeoHead
++        title="Articles juridiques"
++        description="Analyses et décryptages juridiques par Ezer Avocats : droit commercial, droit des sociétés, contentieux et stratégie procédurale."
++        canonical="/articles"
++        schema={{
++          '@context': 'https://schema.org', '@type': 'CollectionPage',
++          name: 'Articles juridiques — Ezer Avocats',
++          url: 'https://www.ezeravocats.com/articles',
++          publisher: { '@type': 'LegalService', name: 'Ezer Avocats', url: 'https://www.ezeravocats.com' },
++        }}
++      />
++
++      <PageHeader
++        title="Articles"
++        description="Analyses et décryptages par le cabinet Ezer Avocats"
++        backgroundImage={livresImage}
++        backgroundPosition="center"
++      />
++
++      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
++        <ul className="divide-y divide-gray-100">
++          {articles.map((article) => (
++            <li key={article.slug} className="py-10 group">
++              <Link to={`/articles/${article.slug}`} className="block">
++                {article.domaine && (
++                  <span className="text-xs tracking-widest uppercase text-gray-400 mb-3 block">
++                    {DOMAINE_LABELS[article.domaine] ?? article.domaine}
++                  </span>
++                )}
++                <h2 className="text-xl md:text-2xl font-light text-gray-900 mb-3 group-hover:text-gray-600 transition-colors leading-snug">
++                  {article.title}
++                </h2>
++                <p className="text-gray-500 font-light leading-relaxed mb-4">{article.description}</p>
++                <span className="text-sm text-gray-900 underline underline-offset-4 group-hover:text-gray-600 transition-colors">
++                  Lire l'article →
++                </span>
++              </Link>
++            </li>
++          ))}
++        </ul>
++      </div>
++    </>
++  );
++}
+diff --git a/src/pages/Home.tsx b/src/pages/Home.tsx
+index 5978a79..043b1da 100644
+--- a/src/pages/Home.tsx
++++ b/src/pages/Home.tsx
+@@ -4,6 +4,7 @@ import SectionTitle from '../components/SectionTitle';
+ import ScrollReveal from '../components/ScrollReveal';
+ import { Link, useLocation } from 'react-router-dom';
+ import justiceImage from '../assets/images/myriam.jpeg';
++import SeoHead from '../components/SeoHead';
+ 
+ export default function Home() {
+   const location = useLocation();
+@@ -19,8 +20,23 @@ export default function Home() {
+     }
+   }, [location]);
+   return (
+-    <div id="top">
+-      <Hero />
++    <>
++      <SeoHead
++        title="Ezer Avocats"
++        description="Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris. Droit commercial, droit des sociétés, recouvrement de créances."
++        canonical="/"
++        schema={{
++          '@context': 'https://schema.org',
++          '@type': 'LegalService',
++          name: 'Ezer Avocats',
++          url: 'https://www.ezeravocats.com',
++          description: "Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris.",
++          address: { '@type': 'PostalAddress', streetAddress: '15 rue de Lübeck', addressLocality: 'Paris', postalCode: '75116', addressCountry: 'FR' },
++          email: 'myriam.douillet@ezeravocats.com',
++        }}
++      />
++      <div id="top">
++        <Hero />
+       
+       <article className="py-32">
+         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+@@ -139,5 +155,6 @@ export default function Home() {
+         </div>
+       </aside>
+     </div>
++    </>
+   );
+ }
+diff --git a/vite.config.ts b/vite.config.ts
+index 529dc35..8b995c0 100644
+--- a/vite.config.ts
++++ b/vite.config.ts
+@@ -1,5 +1,7 @@
+ import { defineConfig } from 'vite';
+ import react from '@vitejs/plugin-react';
++import { readdirSync } from 'fs';
++import { join } from 'path';
+ 
+ import compression from 'vite-plugin-compression';
+ import imagePresets from 'vite-plugin-image-presets';
+@@ -15,6 +17,18 @@ const sharpPreset = imagePresets({
+   },
+ });
+ 
++// Collect article slugs at build time for SSG pre-rendering
++function getArticleRoutes(): string[] {
++  try {
++    const dir = join(process.cwd(), 'src/content/articles');
++    return readdirSync(dir)
++      .filter((f) => f.endsWith('.md'))
++      .map((f) => `/articles/${f.replace(/\.md$/, '')}`);
++  } catch {
++    return [];
++  }
++}
++
+ export default defineConfig({
+   plugins: [
+     react(),
+@@ -49,6 +63,8 @@ export default defineConfig({
+       '/expertises/modes-alternatifs',
+       '/contact',
+       '/mentions-legales',
++      '/articles',
++      ...getArticleRoutes(),
+     ],
+   },
+   build: {
