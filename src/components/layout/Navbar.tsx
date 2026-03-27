@@ -26,16 +26,16 @@ export default function Navbar() {
           </div>
 
           {/* Desktop menu */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-4 lg:space-x-6">
             {navigation.slice(0, -1).map((item) => (
               <Link
                 key={item.name}
                 to={item.href}
-                className={`${
+                className={`whitespace-nowrap ${
                   (location.pathname.startsWith(item.href) && item.href !== '/') || location.pathname === item.href
                     ? 'text-primary border-b-2 border-primary'
                     : 'text-gray-500 hover:text-primary'
-                } px-3 py-2 text-lg font-medium transition-colors duration-200`}
+                } px-2 py-2 text-base font-medium transition-colors duration-200`}
               >
                 {item.name}
               </Link>
@@ -44,7 +44,7 @@ export default function Navbar() {
               href={navigation[navigation.length - 1].href}
               target="_blank"
               rel="noopener noreferrer"
-              className="ml-4 px-6 py-3 bg-[rgb(113,145,170)] text-white text-lg font-semibold rounded-md hover:bg-[rgb(113,145,170)]/90 transition-colors duration-200"
+              className="whitespace-nowrap ml-2 px-5 py-2.5 bg-[rgb(113,145,170)] text-white text-base font-semibold rounded-md hover:bg-[rgb(113,145,170)]/90 transition-colors duration-200"
             >
               {navigation[navigation.length - 1].name}
             </a>
