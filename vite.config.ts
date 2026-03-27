@@ -30,9 +30,7 @@ export default defineConfig({
       threshold: 10240
     })
   ],
-  optimizeDeps: {
-    exclude: ['lucide-react'],
-  },
+
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
