@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { MessageSquare } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import ContactForm from '../components/ContactForm';
 import ScrollReveal from '../components/ScrollReveal';
+import ZcalEmbed from '../components/ZcalEmbed';
 import { useLocation } from 'react-router-dom';
 import bureauImage from '../assets/images/bureau.jpg';
 
@@ -21,10 +21,10 @@ export default function Contact() {
   }, [location]);
   return (
     <div id="top">
-      <PageHeader 
-        title="Contact" 
-        description="Prenez rendez-vous avec notre cabinet"
-        icon={<MessageSquare className="w-16 h-16 text-white/80" />}
+      <PageHeader
+        title="Contact"
+        description="Premier entretien sans engagement pour analyser votre situation"
+        eyebrow="Nous contacter"
         backgroundImage={bureauImage}
       />
       
@@ -39,11 +39,10 @@ export default function Contact() {
           <ScrollReveal animation="fade-in" delay={150}>
             <div className="w-full">
               <h2 className="text-3xl font-extralight tracking-wide mb-8 text-gray-900">Prenez rendez-vous</h2>
-              <iframe 
-                src="https://zcal.co/i/eaFLKrTt?embed=1&embedType=iframe" 
-                loading="lazy"
-                style={{ border: 'none', minWidth: '320px', height: '800px', width: '100%' }}
-                id="zcal-invite"
+              <ZcalEmbed
+                src="https://zcal.co/i/eaFLKrTt?embed=1&embedType=iframe"
+                height={800}
+                title="Prendre rendez-vous avec Maître Myriam Douillet Benaroch"
               />
             </div>
           </ScrollReveal>

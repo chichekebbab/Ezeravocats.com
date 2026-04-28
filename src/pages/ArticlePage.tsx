@@ -27,12 +27,14 @@ const DOMAINE_LABELS: Record<string, string> = {
 };
 
 function parseFrontmatter(raw: string): { meta: ArticleFrontmatter; content: string } {
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+  // Normalize line endings: Windows-saved files use CRLF, the regex below expects LF.
+  const normalized = raw.replace(/\r\n/g, '\n');
+  const match = normalized.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!match) return { meta: {} as ArticleFrontmatter, content: raw };
   const yamlBlock = match[1];
   const content = match[2].trim();
   const get = (key: string) => {
-    const m = yamlBlock.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?`, 'm'));
+    const m = yamlBlock.match(new RegExp(`^${key}:\\s*"?([^"\\n]+?)"?\\s*$`, 'm'));
     return m ? m[1].trim() : '';
   };
   return {
@@ -119,7 +121,7 @@ export default function ArticlePage() {
           {/* Méta : domaine + date */}
           <div className="flex flex-wrap items-center gap-3 mb-5">
             {domaineLabel && (
-              <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium tracking-wide bg-primary/10 text-primary-dark border border-primary/20">
+              <span className="inline-flex items-center px-3 py-1 text-xs font-medium tracking-[0.12em] uppercase bg-primary/10 text-primary-dark border border-primary/20">
                 {domaineLabel}
               </span>
             )}
@@ -152,7 +154,7 @@ export default function ArticlePage() {
 
         {/* ── Footer article ── */}
         <footer className="mt-16 pt-8 border-t border-gray-100 max-w-[70ch] mx-auto">
-          <div className="bg-slate-50 rounded-xl p-6 md:p-8">
+          <div className="bg-slate-50 p-6 md:p-8">
             <p className="text-sm text-gray-500 leading-relaxed mb-4">
               <span className="font-medium text-gray-700">À noter :</span>{' '}
               Cet article est rédigé à titre informatif et ne constitue pas un conseil juridique personnalisé.
@@ -160,7 +162,7 @@ export default function ArticlePage() {
             </p>
             <Link
               to="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium text-primary-dark border border-primary/30 hover:border-primary hover:bg-primary/5 rounded-lg px-4 py-2 transition-all duration-200"
+              className="inline-flex items-center gap-2 text-sm font-light tracking-wider text-gray-900 border border-gray-300 hover:border-gray-900 px-4 py-2 transition-colors duration-200"
             >
               Contacter le cabinet →
             </Link>

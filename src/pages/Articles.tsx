@@ -15,11 +15,13 @@ interface ArticleMeta {
 }
 
 function parseFrontmatter(raw: string): ArticleMeta {
-  const match = raw.match(/^---\n([\s\S]*?)\n---/);
+  // Normalize line endings: Windows-saved files use CRLF, the regex below expects LF.
+  const normalized = raw.replace(/\r\n/g, '\n');
+  const match = normalized.match(/^---\n([\s\S]*?)\n---/);
   if (!match) return {} as ArticleMeta;
   const yaml = match[1];
   const get = (key: string) => {
-    const m = yaml.match(new RegExp(`^${key}:\\s*"?([^"\\n]+)"?`, 'm'));
+    const m = yaml.match(new RegExp(`^${key}:\\s*"?([^"\\n]+?)"?\\s*$`, 'm'));
     return m ? m[1].trim() : '';
   };
   return { title: get('title'), description: get('description'), date: get('date'), domaine: get('domaine'), slug: get('slug') };
@@ -48,7 +50,7 @@ export default function Articles() {
         canonical="/articles"
         schema={{
           '@context': 'https://schema.org', '@type': 'CollectionPage',
-          name: 'Articles juridiques — Ezer Avocats',
+          name: 'Articles juridiques | Ezer Avocats',
           url: 'https://www.ezeravocats.com/articles',
           publisher: { '@type': 'LegalService', name: 'Ezer Avocats', url: 'https://www.ezeravocats.com' },
         }}
@@ -87,7 +89,7 @@ export default function Articles() {
                   {/* Méta : domaine + date */}
                   <div className="flex flex-wrap items-center gap-3 mb-4">
                     {domaineLabel && (
-                      <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[11px] font-medium tracking-wide bg-primary/10 text-primary-dark border border-primary/20 uppercase">
+                      <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-medium tracking-[0.12em] bg-primary/10 text-primary-dark border border-primary/20 uppercase">
                         {domaineLabel}
                       </span>
                     )}
