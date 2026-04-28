@@ -18,8 +18,8 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['Playfair Display', 'serif'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['EB Garamond', 'serif'],
+        sans: ['Jost', 'system-ui', '-apple-system', 'sans-serif'],
       }
     },
   },

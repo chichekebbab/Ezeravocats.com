@@ -44,7 +44,7 @@ export default function Navbar() {
               href={navigation[navigation.length - 1].href}
               target="_blank"
               rel="noopener noreferrer"
-              className="whitespace-nowrap ml-2 px-5 py-2.5 bg-[rgb(113,145,170)] text-white text-base font-semibold rounded-md hover:bg-[rgb(113,145,170)]/90 transition-colors duration-200"
+              className="whitespace-nowrap ml-2 px-5 py-2.5 bg-gray-900 hover:bg-gray-700 text-white text-sm font-light tracking-wider transition-colors duration-200"
             >
               {navigation[navigation.length - 1].name}
             </a>
@@ -66,8 +66,8 @@ export default function Navbar() {
       {isOpen && (
         <div className="md:hidden fixed inset-0 z-50">
           {/* Backdrop */}
-          <div 
-            className="fixed inset-0 bg-black/50" 
+          <div
+            className="fixed inset-0 bg-slate-900/55"
             onClick={() => setIsOpen(false)}
           />
           {/* Menu */}
@@ -79,7 +79,7 @@ export default function Navbar() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-gray-500 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-md text-base font-medium"
+                  className="text-gray-500 hover:text-primary hover:bg-primary/5 block px-3 py-2 rounded-none text-base font-medium"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}
@@ -92,7 +92,7 @@ export default function Navbar() {
                     (location.pathname.startsWith(item.href) && item.href !== '/') || location.pathname === item.href
                       ? 'text-primary bg-primary/5'
                       : 'text-gray-500 hover:text-primary hover:bg-primary/5'
-                  } block px-3 py-2 rounded-md text-base font-medium`}
+                  } block px-3 py-2 rounded-none text-base font-medium`}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

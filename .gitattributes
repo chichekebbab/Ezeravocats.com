@@ -1,0 +1,26 @@
+# Auto-detect text files and normalize their line endings to LF on commit.
+* text=auto eol=lf
+
+# Force LF for source and content files (avoids CRLF parsing bugs in markdown frontmatter)
+*.md       text eol=lf
+*.mdx      text eol=lf
+*.ts       text eol=lf
+*.tsx      text eol=lf
+*.js       text eol=lf
+*.jsx      text eol=lf
+*.json     text eol=lf
+*.css      text eol=lf
+*.html     text eol=lf
+*.yml      text eol=lf
+*.yaml     text eol=lf
+
+# Keep binary files binary
+*.png      binary
+*.jpg      binary
+*.jpeg     binary
+*.gif      binary
+*.svg      text eol=lf
+*.ico      binary
+*.woff     binary
+*.woff2    binary
+*.ttf      binary

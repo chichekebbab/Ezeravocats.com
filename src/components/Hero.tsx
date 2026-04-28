@@ -27,7 +27,7 @@ export default function Hero() {
 
   return (
     <section className="relative h-screen bg-primary bg-cover bg-center" style={{ backgroundImage: `url(${homepageImage})` }}>
-      <div className="absolute inset-0 bg-black/50"></div>
+      <div className="absolute inset-0 bg-slate-900/55"></div>
       <div ref={containerRef} className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="max-w-3xl">
           <img
@@ -37,7 +37,7 @@ export default function Hero() {
             fetchpriority="high"
             className="hero-reveal mb-8 w-[280px]"
           />
-          <p className="hero-reveal text-gray-300 text-xl mb-4 tracking-wider">VOS ENJEUX, NOTRE EXPERTISE</p>
+          <p className="hero-reveal text-gray-300 text-sm mb-4 tracking-[0.25em] uppercase">Rigueur. Stratégie. Conviction.</p>
           <h1 className="hero-reveal text-4xl md:text-6xl font-extralight text-white mb-8 leading-tight">
             Cabinet d'avocats à Paris dédié au contentieux des affaires
           </h1>

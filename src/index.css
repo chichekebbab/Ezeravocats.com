@@ -68,7 +68,7 @@
 }
 
 body {
-  @apply text-gray-900;
+  @apply text-gray-900 bg-white;
 }
 
 /* ──────────────────────────────────────────────
@@ -147,10 +147,9 @@ body {
 /* Blockquotes */
 .article-body blockquote {
   margin: 2rem 0;
-  padding: 1.25rem 1.5rem;
-  border-left: 3px solid #7191aa; /* primary */
-  background-color: #f8fafc;      /* slate-50 */
-  border-radius: 0 0.5rem 0.5rem 0;
+  padding: 1.25rem 1.75rem;
+  background-color: #eef2f6;      /* light blue-gray tinted toward brand */
+  border-radius: 2px;
   color: #4b5563;                 /* gray-600 */
   font-style: normal;
   line-height: 1.75;

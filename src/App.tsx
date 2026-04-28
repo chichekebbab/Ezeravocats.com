@@ -14,12 +14,15 @@ import ModesAlternatifs from './pages/expertises/ModesAlternatifs';
 import MentionsLegales from './pages/MentionsLegales';
 import Articles from './pages/Articles';
 import ArticlePage from './pages/ArticlePage';
+import NotFound from './pages/NotFound';
 import { RouteTracker } from './components/RouteTracker';
+import ScrollToTop from './components/ScrollToTop';
 
 function RootLayout() {
   return (
     <>
       <RouteTracker />
+      <ScrollToTop />
       <Layout />
     </>
   );
@@ -44,6 +47,7 @@ export const routes: RouteRecord[] = [
       { path: 'mentions-legales', element: <MentionsLegales /> },
       { path: 'articles', element: <Articles /> },
       { path: 'articles/:slug', element: <ArticlePage /> },
+      { path: '*', element: <NotFound /> },
     ],
   },
 ];

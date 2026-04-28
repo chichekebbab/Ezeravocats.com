@@ -16,9 +16,10 @@ export default function Equipe() {
   }, [location]);
   return (
     <div id="top">
-      <PageHeader 
-        title="Qui sommes nous ?"
-        description="Une équipe d'experts à votre service"
+      <PageHeader
+        title="Qui sommes-nous ?"
+        description="Avocate au Barreau de Paris depuis 2019, en contentieux des affaires"
+        eyebrow="L'équipe"
         backgroundImage={quiSommesNousImage}
       />
       
@@ -32,7 +33,7 @@ export default function Equipe() {
                   title="Maître Myriam Douillet Benaroch"
                   alignment="left"
                 />
-                <div className="text-gray-600 mb-3 text-justify space-y-4">
+                <div className="text-gray-600 mb-3 space-y-4">
                   <p>
                     Avocate au Barreau de Paris depuis 2019, exerçant en contentieux des affaires, j'accompagne des entreprises françaises et internationales de toutes tailles dans la gestion de leurs litiges.
                   </p>
@@ -56,7 +57,7 @@ export default function Equipe() {
                 <img
                   src={myriamImage}
                   alt="Maître Myriam Douillet Benaroch"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105 rounded-2xl"
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>
             </ScrollReveal>

@@ -18,7 +18,7 @@ export default function DroitCommercial() {
         Le cabinet vous accompagne devant toutes les juridictions, en première instance comme en appel, en procédures de référé ou au fond.
       </p>
       <p className="font-medium">
-        Notre engagement : apporter une défense solide et réactive pour sécuriser vos activités commerciales et faire de votre réussite notre priorité.
+        Notre engagement : une défense précise et réactive à chaque stade de la procédure, avec une expertise adaptée à la réalité de chaque dossier.
       </p>
     </>
   );
