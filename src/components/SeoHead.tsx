@@ -61,6 +61,8 @@ export default function SeoHead({
           // @ts-ignore
           imagesizes="100vw"
           type="image/webp"
+          // @ts-ignore - fetchpriority lowercase is the correct HTML attribute
+          fetchpriority="high"
         />
       )}
 
