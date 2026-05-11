@@ -4,8 +4,9 @@ import Hero from '../components/Hero';
 import SectionTitle from '../components/SectionTitle';
 import ScrollReveal from '../components/ScrollReveal';
 import { Link, useLocation } from 'react-router-dom';
-import justiceImage from '../assets/images/myriam.jpeg';
 import SeoHead from '../components/SeoHead';
+import ResponsiveImage from '../components/ResponsiveImage';
+import { legalServiceSchema } from '../lib/schemas';
 
 const expertises = [
   {
@@ -66,22 +67,8 @@ export default function Home() {
         title="Ezer Avocats"
         description="Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris. Droit commercial, droit des sociétés, recouvrement de créances."
         canonical="/"
-        schema={{
-          '@context': 'https://schema.org',
-          '@type': 'LegalService',
-          name: 'Ezer Avocats',
-          url: 'https://www.ezeravocats.com',
-          description:
-            "Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris.",
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: '15 rue de Lübeck',
-            addressLocality: 'Paris',
-            postalCode: '75116',
-            addressCountry: 'FR',
-          },
-          email: 'myriam.douillet@ezeravocats.com',
-        }}
+        preloadImage="/images/homepage"
+        schema={legalServiceSchema}
       />
       <div id="top">
         <Hero />
@@ -163,9 +150,10 @@ export default function Home() {
               </ScrollReveal>
               <ScrollReveal animation="slide-in-right">
                 <div className="relative h-[600px] overflow-hidden">
-                  <img
-                    src={justiceImage}
-                    alt="Salle de réunion"
+                  <ResponsiveImage
+                    src="/images/myriam"
+                    alt="Maître Myriam Douillet Benaroch dans son cabinet"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>

@@ -1,15 +1,20 @@
 import React from 'react';
 import PageHeader from '../components/PageHeader';
-import mentionsLegalesImage from '../assets/images/mentionslegales.jpg';
+import SeoHead from '../components/SeoHead';
 
 export default function MentionsLegales() {
   return (
     <>
-      <PageHeader 
+      <SeoHead
+        title="Mentions légales"
+        description="Mentions légales du site Ezer Avocats : informations légales, hébergeur, propriété intellectuelle, données personnelles et cookies."
+        canonical="/mentions-legales"
+        noindex
+      />
+      <PageHeader
         title="Mentions légales"
         description="Informations légales concernant le site web Ezer Avocats"
-        backgroundImage={mentionsLegalesImage}
-        backgroundPosition="center"
+        image="/images/mentions-legales"
       />
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-grow">

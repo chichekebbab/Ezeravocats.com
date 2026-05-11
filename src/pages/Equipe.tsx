@@ -3,8 +3,9 @@ import PageHeader from '../components/PageHeader';
 import SectionTitle from '../components/SectionTitle';
 import ScrollReveal from '../components/ScrollReveal';
 import { useLocation } from 'react-router-dom';
-import quiSommesNousImage from '../assets/images/qui sommes nous.jpg';
-import myriamImage from '../assets/images/myriam.jpeg';
+import SeoHead from '../components/SeoHead';
+import ResponsiveImage from '../components/ResponsiveImage';
+import { founderSchema, breadcrumbSchema } from '../lib/schemas';
 
 export default function Equipe() {
   const location = useLocation();
@@ -16,11 +17,23 @@ export default function Equipe() {
   }, [location]);
   return (
     <div id="top">
+      <SeoHead
+        title="L'équipe"
+        description="Maître Myriam Douillet Benaroch, avocate au Barreau de Paris depuis 2019, accompagne les entreprises dans la gestion de leurs litiges commerciaux."
+        canonical="/equipe"
+        schema={[
+          founderSchema,
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: "L'équipe", path: '/equipe' },
+          ]),
+        ]}
+      />
       <PageHeader
         title="Qui sommes-nous ?"
         description="Avocate au Barreau de Paris depuis 2019, en contentieux des affaires"
         eyebrow="L'équipe"
-        backgroundImage={quiSommesNousImage}
+        image="/images/qui-sommes-nous"
       />
       
       <aside className="py-32 bg-gray-50">
@@ -54,9 +67,10 @@ export default function Equipe() {
             </ScrollReveal>
             <ScrollReveal animation="slide-in-right">
               <div className="relative h-[600px] overflow-hidden">
-                <img
-                  src={myriamImage}
-                  alt="Maître Myriam Douillet Benaroch"
+                <ResponsiveImage
+                  src="/images/myriam"
+                  alt="Maître Myriam Douillet Benaroch dans son cabinet"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
               </div>

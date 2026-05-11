@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import droitConsommationImage from '../../assets/images/expertises/droit de la consommation.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function DroitConsommation() {
   const content = (
@@ -21,11 +22,32 @@ export default function DroitConsommation() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Droit de la consommation et de la distribution"
-      description="Protection des intérêts et conformité dans les relations avec les consommateurs"
-      imagePath={droitConsommationImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Avocat en droit de la consommation — Paris"
+        description="Avocat en droit de la consommation et de la distribution : pratiques commerciales trompeuses, litiges fournisseur-distributeur et contentieux B2C."
+        canonical="/expertises/droit-consommation"
+        schema={[
+          serviceSchema({
+            name: 'Droit de la consommation et de la distribution',
+            description:
+              'Pratiques commerciales, contentieux fournisseur-distributeur, litiges B2C et conformité aux obligations précontractuelles.',
+            slug: 'droit-consommation',
+            serviceType: 'Droit de la consommation',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Droit de la consommation', path: '/expertises/droit-consommation' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Droit de la consommation et de la distribution"
+        description="Protection des intérêts et conformité dans les relations avec les consommateurs"
+        image="/images/expertises/droit-consommation"
+        content={content}
+      />
+    </>
   );
 }

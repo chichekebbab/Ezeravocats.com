@@ -3,8 +3,9 @@ import { Scale } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import ScrollReveal from '../components/ScrollReveal';
 import { useLocation } from 'react-router-dom';
-import livresImage from '../assets/images/livres.jpg';
-import cabinetImage from '../assets/images/Le Cabinet.jpg';
+import SeoHead from '../components/SeoHead';
+import ResponsiveImage from '../components/ResponsiveImage';
+import { breadcrumbSchema } from '../lib/schemas';
 
 export default function Cabinet() {
   const location = useLocation();
@@ -21,11 +22,20 @@ export default function Cabinet() {
   }, [location]);
   return (
     <div id="top">
+      <SeoHead
+        title="Le Cabinet"
+        description="Cabinet d'avocats à Paris dédié au contentieux des affaires : droit commercial, droit des sociétés, recouvrement de créances et résolution amiable."
+        canonical="/cabinet"
+        schema={breadcrumbSchema([
+          { name: 'Accueil', path: '/' },
+          { name: 'Le Cabinet', path: '/cabinet' },
+        ])}
+      />
       <PageHeader
         title="Le Cabinet"
         description="Une expertise juridique au service de vos projets"
         eyebrow="Notre cabinet"
-        backgroundImage={livresImage}
+        image="/images/livres"
         icon={<Scale className="w-16 h-16 text-white/80" />}
       />
       
@@ -64,9 +74,10 @@ export default function Cabinet() {
           </ScrollReveal>
           <ScrollReveal animation="slide-in-right">
             <div className="relative aspect-square overflow-hidden">
-              <img
-                src={cabinetImage}
+              <ResponsiveImage
+                src="/images/le-cabinet"
                 alt="Le Cabinet"
+                sizes="(max-width: 768px) 100vw, 50vw"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>

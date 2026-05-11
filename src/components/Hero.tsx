@@ -1,8 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import Logo from './Logo';
-import homepageImage from '../assets/images/homepage.jpg';
+import ResponsiveImage from './ResponsiveImage';
 import ezerLogo from '../assets/images/Ezer Logo/Ezer Inverted Color Transparent bg (1).svg';
 
 export default function Hero() {
@@ -26,7 +25,14 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-screen bg-primary bg-cover bg-center" style={{ backgroundImage: `url(${homepageImage})` }}>
+    <section className="relative h-screen bg-primary overflow-hidden">
+      <ResponsiveImage
+        src="/images/homepage"
+        alt=""
+        priority
+        sizes="100vw"
+        className="absolute inset-0 w-full h-full object-cover"
+      />
       <div className="absolute inset-0 bg-slate-900/55"></div>
       <div ref={containerRef} className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
         <div className="max-w-3xl">

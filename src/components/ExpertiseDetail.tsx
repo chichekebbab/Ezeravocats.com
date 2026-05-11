@@ -2,32 +2,35 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import PageHeader from './PageHeader';
+import ResponsiveImage from './ResponsiveImage';
 import ScrollReveal from './ScrollReveal';
 
 interface ExpertiseDetailProps {
   title: string;
   description: string;
-  imagePath: string;
+  /** Base path of the optimized image set, e.g. "/images/expertises/droit-commercial". */
+  image: string;
   content: React.ReactNode;
 }
 
-export default function ExpertiseDetail({ title, description, imagePath, content }: ExpertiseDetailProps) {
+export default function ExpertiseDetail({ title, description, image, content }: ExpertiseDetailProps) {
   return (
     <div id="top" className="min-h-screen flex flex-col">
       <PageHeader
         title={title}
         description={description}
         eyebrow="Domaine d'expertise"
-        backgroundImage={imagePath}
+        image={image}
       />
 
       <div className="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-[2fr_3fr] gap-12 lg:gap-16 items-start">
           <ScrollReveal animation="slide-in-left">
             <div className="relative h-[320px] lg:h-[480px] overflow-hidden">
-              <img
-                src={imagePath}
+              <ResponsiveImage
+                src={image}
                 alt={title}
+                sizes="(max-width: 1024px) 100vw, 40vw"
                 className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
               />
             </div>
