@@ -49,6 +49,12 @@ export default defineConfig({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
+    crittersOptions: {
+      // Critters auto-adds a <link rel="preload"> for every @font-face it finds
+      // in the inlined critical CSS — that's 18 woff2 downloads on mobile.
+      // We manage font preloads manually in index.html (2 preloads only).
+      preloadFonts: false,
+    },
     includedRoutes: () => [
       '/',
       '/cabinet',
