@@ -154,6 +154,8 @@ export default function Home() {
                     src="/images/myriam"
                     alt="Maître Myriam Douillet Benaroch dans son cabinet"
                     sizes="(max-width: 1024px) 100vw, 50vw"
+                    width={800}
+                    height={1000}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                   />
                 </div>

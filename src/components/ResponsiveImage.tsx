@@ -14,6 +14,10 @@ type Props = {
   /** Inline style passthrough (e.g. object-position). */
   style?: React.CSSProperties;
   widths?: number[];
+  /** Intrinsic width of the source image — lets the browser reserve layout space. */
+  width?: number;
+  /** Intrinsic height of the source image — lets the browser reserve layout space. */
+  height?: number;
 };
 
 export default function ResponsiveImage({
@@ -24,6 +28,8 @@ export default function ResponsiveImage({
   className,
   style,
   widths = [400, 800, 1600],
+  width,
+  height,
 }: Props) {
   const webpSrcSet = widths.map((w) => `${src}-${w}.webp ${w}w`).join(', ');
   const fallback = `${src}-1200.jpg`;
@@ -34,6 +40,8 @@ export default function ResponsiveImage({
       <img
         src={fallback}
         alt={alt}
+        width={width}
+        height={height}
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
         // @ts-ignore - fetchpriority lowercase is the correct HTML attribute
