@@ -26,7 +26,7 @@ const SOURCES = {
   'bureau.jpg': 'bureau',
   'mentionslegales.jpg': 'mentions-legales',
   'Le Cabinet.jpg': 'le-cabinet',
-  'myriam.jpeg': 'myriam',
+  'myriam.jpeg': 'myriam-v2',
   'justice.jpg': 'justice',
   'expertises/Droit commercial.jpg': 'expertises/droit-commercial',
   'expertises/Droit des sociétés.jpg': 'expertises/droit-societes',

@@ -54,7 +54,7 @@ export const founderSchema = {
     { '@type': 'CollegeOrUniversity', name: 'Université Paris V – Descartes' },
   ],
   url: `${SITE_URL}/equipe`,
-  image: `${SITE_URL}/images/myriam-800.webp`,
+  image: `${SITE_URL}/images/myriam-v2-800.webp`,
   sameAs: ['https://www.linkedin.com/in/myriam-douillet-2387b2100/'],
 };
 

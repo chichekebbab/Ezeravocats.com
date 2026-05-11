@@ -68,7 +68,7 @@ export default function Equipe() {
             <ScrollReveal animation="slide-in-right">
               <div className="relative h-[600px] overflow-hidden">
                 <ResponsiveImage
-                  src="/images/myriam"
+                  src="/images/myriam-v2"
                   alt="Maître Myriam Douillet Benaroch dans son cabinet"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
