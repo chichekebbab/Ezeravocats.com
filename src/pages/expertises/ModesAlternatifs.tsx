@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import modesAlternatifsImage from '../../assets/images/expertises/Modes alternatifs.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function ModesAlternatifs() {
   const content = (
@@ -21,11 +22,32 @@ export default function ModesAlternatifs() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Modes alternatifs de règlements des litiges"
-      description="Solutions amiables et efficaces pour la résolution des différends"
-      imagePath={modesAlternatifsImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Modes alternatifs de règlement des litiges"
+        description="Résolution amiable des litiges : négociation pré-contentieuse, médiation, conciliation et procédure participative. Alternative efficace au contentieux."
+        canonical="/expertises/modes-alternatifs"
+        schema={[
+          serviceSchema({
+            name: 'Modes alternatifs de règlement des litiges',
+            description:
+              'Négociation, médiation, conciliation et procédures participatives. Résolution amiable lorsque plus efficace qu\'un contentieux.',
+            slug: 'modes-alternatifs',
+            serviceType: 'Médiation et résolution amiable',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Modes alternatifs', path: '/expertises/modes-alternatifs' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Modes alternatifs de règlements des litiges"
+        description="Solutions amiables et efficaces pour la résolution des différends"
+        image="/images/expertises/modes-alternatifs"
+        content={content}
+      />
+    </>
   );
 }

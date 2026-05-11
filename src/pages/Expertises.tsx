@@ -3,7 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
 import PageHeader from '../components/PageHeader';
 import ScrollReveal from '../components/ScrollReveal';
-import expertiseImage from '../assets/images/expertise.jpg';
+import SeoHead from '../components/SeoHead';
+import { breadcrumbSchema } from '../lib/schemas';
 
 interface Expertise {
   slug: string;
@@ -99,11 +100,20 @@ export default function Expertises() {
 
   return (
     <div id="top">
+      <SeoHead
+        title="Nos expertises"
+        description="Six domaines d'intervention en contentieux des affaires : droit commercial, droit des sociétés, droit du numérique, droit de la construction, médiation."
+        canonical="/expertises"
+        schema={breadcrumbSchema([
+          { name: 'Accueil', path: '/' },
+          { name: 'Expertises', path: '/expertises' },
+        ])}
+      />
       <PageHeader
         title="Nos Expertises"
         description="Six domaines d'intervention en contentieux des affaires"
         eyebrow="Domaines d'intervention"
-        backgroundImage={expertiseImage}
+        image="/images/expertise"
       />
 
       <section className="py-16 md:py-24">

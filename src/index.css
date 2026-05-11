@@ -1,4 +1,4 @@
-/* Remove Google Fonts import as we're handling it in index.html */
+@import './assets/fonts.css';
 
 @tailwind base;
 @tailwind components;

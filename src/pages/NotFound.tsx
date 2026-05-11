@@ -7,9 +7,9 @@ export default function NotFound() {
   return (
     <>
       <SeoHead
-        title="Page introuvable | Ezer Avocats"
+        title="Page introuvable"
         description="La page que vous cherchez n'existe pas ou a été déplacée."
-        canonical="/404"
+        noindex
       />
       <section className="min-h-[70vh] flex items-center">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">

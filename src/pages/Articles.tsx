@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
-import livresImage from '../assets/images/livres.jpg';
 
 const articleModules = import.meta.glob('../content/articles/*.md', {
   query: '?raw',
@@ -59,8 +58,7 @@ export default function Articles() {
       <PageHeader
         title="Articles"
         description="Analyses et décryptages par le cabinet Ezer Avocats"
-        backgroundImage={livresImage}
-        backgroundPosition="center"
+        image="/images/livres"
       />
 
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">

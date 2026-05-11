@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import droitConstructionImage from '../../assets/images/expertises/Droit de la construction.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function DroitConstruction() {
   const content = (
@@ -27,11 +28,32 @@ export default function DroitConstruction() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Droit de la construction - Risques industriels"
-      description="Sécurisation des projets et gestion des litiges techniques"
-      imagePath={droitConstructionImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Avocat en droit de la construction — Paris"
+        description="Avocat en droit de la construction et risques industriels : malfaçons, garantie décennale, contentieux maître d'ouvrage / entreprises / sous-traitants."
+        canonical="/expertises/droit-construction"
+        schema={[
+          serviceSchema({
+            name: 'Droit de la construction et risques industriels',
+            description:
+              "Malfaçons, garantie décennale, contentieux entre maître d'ouvrage, entreprises et sous-traitants. Risques industriels et contentieux assurantiel.",
+            slug: 'droit-construction',
+            serviceType: 'Droit de la construction',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Droit de la construction', path: '/expertises/droit-construction' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Droit de la construction - Risques industriels"
+        description="Sécurisation des projets et gestion des litiges techniques"
+        image="/images/expertises/droit-construction"
+        content={content}
+      />
+    </>
   );
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import droitCommercialImage from '../../assets/images/expertises/Droit commercial.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function DroitCommercial() {
   const content = (
@@ -24,11 +25,32 @@ export default function DroitCommercial() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Droit commercial"
-      description="Sécurisation des relations d'affaires et défense des intérêts commerciaux"
-      imagePath={droitCommercialImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Avocat en droit commercial — Paris"
+        description="Cabinet d'avocat en droit commercial à Paris : ruptures abusives, concurrence déloyale, rupture brutale de relations établies, recouvrement de créances."
+        canonical="/expertises/droit-commercial"
+        schema={[
+          serviceSchema({
+            name: 'Droit commercial',
+            description:
+              "Sécurisation des relations d'affaires et défense des intérêts commerciaux : ruptures abusives, concurrence déloyale, rupture brutale, recouvrement.",
+            slug: 'droit-commercial',
+            serviceType: 'Droit commercial',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Droit commercial', path: '/expertises/droit-commercial' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Droit commercial"
+        description="Sécurisation des relations d'affaires et défense des intérêts commerciaux"
+        image="/images/expertises/droit-commercial"
+        content={content}
+      />
+    </>
   );
 }

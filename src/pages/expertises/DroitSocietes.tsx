@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import droitSocietesImage from '../../assets/images/expertises/Droit des sociétés.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function DroitSocietes() {
   const content = (
@@ -24,11 +25,32 @@ export default function DroitSocietes() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Droit des sociétés"
-      description="Résolution des litiges complexes et protection des intérêts sociaux"
-      imagePath={droitSocietesImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Avocat en droit des sociétés — Paris"
+        description="Avocat en droit des sociétés à Paris : conflits entre actionnaires, responsabilité des dirigeants, contentieux post-cession, garanties d'actif et de passif."
+        canonical="/expertises/droit-societes"
+        schema={[
+          serviceSchema({
+            name: 'Droit des sociétés',
+            description:
+              'Conflits entre actionnaires, responsabilité des dirigeants, contentieux post-cession et garanties d\'actif et de passif.',
+            slug: 'droit-societes',
+            serviceType: 'Droit des sociétés',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Droit des sociétés', path: '/expertises/droit-societes' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Droit des sociétés"
+        description="Résolution des litiges complexes et protection des intérêts sociaux"
+        image="/images/expertises/droit-societes"
+        content={content}
+      />
+    </>
   );
 }

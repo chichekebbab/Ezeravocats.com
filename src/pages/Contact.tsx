@@ -4,7 +4,8 @@ import ContactForm from '../components/ContactForm';
 import ScrollReveal from '../components/ScrollReveal';
 import ZcalEmbed from '../components/ZcalEmbed';
 import { useLocation } from 'react-router-dom';
-import bureauImage from '../assets/images/bureau.jpg';
+import SeoHead from '../components/SeoHead';
+import { breadcrumbSchema } from '../lib/schemas';
 
 export default function Contact() {
   const location = useLocation();
@@ -21,11 +22,20 @@ export default function Contact() {
   }, [location]);
   return (
     <div id="top">
+      <SeoHead
+        title="Contact"
+        description="Contactez le cabinet Ezer Avocats à Paris pour un premier entretien d'analyse de votre situation, par formulaire ou prise de rendez-vous en ligne."
+        canonical="/contact"
+        schema={breadcrumbSchema([
+          { name: 'Accueil', path: '/' },
+          { name: 'Contact', path: '/contact' },
+        ])}
+      />
       <PageHeader
         title="Contact"
         description="Premier entretien sans engagement pour analyser votre situation"
         eyebrow="Nous contacter"
-        backgroundImage={bureauImage}
+        image="/images/bureau"
       />
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

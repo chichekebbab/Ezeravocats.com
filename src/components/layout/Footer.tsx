@@ -14,6 +14,8 @@ export default function Footer() {
               <img
                 src={whiteLogo}
                 alt="Ezer Avocats"
+                loading="lazy"
+                decoding="async"
                 className="mb-6 h-12"
               />
               <p className="text-white font-light">

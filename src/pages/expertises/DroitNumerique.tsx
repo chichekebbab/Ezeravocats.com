@@ -1,6 +1,7 @@
 import React from 'react';
 import ExpertiseDetail from '../../components/ExpertiseDetail';
-import droitNumeriqueImage from '../../assets/images/expertises/Droit du numérique.jpg';
+import SeoHead from '../../components/SeoHead';
+import { serviceSchema, breadcrumbSchema } from '../../lib/schemas';
 
 export default function DroitNumerique() {
   const content = (
@@ -24,11 +25,32 @@ export default function DroitNumerique() {
   );
 
   return (
-    <ExpertiseDetail
-      title="Droits et actifs numériques"
-      description="Protection et sécurisation de vos activités numériques"
-      imagePath={droitNumeriqueImage}
-      content={content}
-    />
+    <>
+      <SeoHead
+        title="Avocat en droit du numérique — Paris"
+        description="Avocat en droits et actifs numériques : litiges plateformes, contrats SaaS, données personnelles, propriété intellectuelle des logiciels et bases de données."
+        canonical="/expertises/droit-numerique"
+        schema={[
+          serviceSchema({
+            name: 'Droits et actifs numériques',
+            description:
+              "Litiges propres aux acteurs de l'économie numérique : plateformes, contrats SaaS, données personnelles, propriété intellectuelle des logiciels.",
+            slug: 'droit-numerique',
+            serviceType: 'Droit du numérique',
+          }),
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Expertises', path: '/expertises' },
+            { name: 'Droit du numérique', path: '/expertises/droit-numerique' },
+          ]),
+        ]}
+      />
+      <ExpertiseDetail
+        title="Droits et actifs numériques"
+        description="Protection et sécurisation de vos activités numériques"
+        image="/images/expertises/droit-numerique"
+        content={content}
+      />
+    </>
   );
 }

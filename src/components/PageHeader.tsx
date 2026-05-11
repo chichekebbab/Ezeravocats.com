@@ -1,11 +1,14 @@
 import React, { ReactNode } from 'react';
+import ResponsiveImage from './ResponsiveImage';
 
 interface PageHeaderProps {
   title: string;
   description?: string;
   eyebrow?: string;
-  backgroundImage?: string;
-  backgroundPosition?: string;
+  /** Base path of the optimized image set (without extension or size), e.g. "/images/expertise". */
+  image?: string;
+  /** Object-position CSS for the image, e.g. "center top". */
+  imagePosition?: string;
   icon?: ReactNode;
 }
 
@@ -13,21 +16,20 @@ export default function PageHeader({
   title,
   description,
   eyebrow,
-  backgroundImage,
-  backgroundPosition,
+  image,
+  imagePosition,
   icon,
 }: PageHeaderProps) {
   return (
     <div className="relative h-[52vh] min-h-[320px] overflow-hidden bg-gray-900">
-      {/* Background */}
-      {backgroundImage ? (
-        <div
-          className="absolute inset-0 transition-transform duration-700"
-          style={{
-            backgroundImage: `url("${backgroundImage}")`,
-            backgroundPosition: backgroundPosition || 'center',
-            backgroundSize: 'cover',
-          }}
+      {image ? (
+        <ResponsiveImage
+          src={image}
+          alt=""
+          priority
+          sizes="100vw"
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700"
+          style={imagePosition ? { objectPosition: imagePosition } : undefined}
         />
       ) : (
         <div className="absolute inset-0 flex items-center justify-center opacity-10">
