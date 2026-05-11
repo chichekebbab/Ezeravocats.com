@@ -67,6 +67,16 @@
   }
 }
 
+html,
+body {
+  /* Prevent off-screen ScrollReveal translations (translateX(±48px)) from
+     widening the layout viewport on mobile — that was pushing the fixed
+     header past the visible edge and hiding the burger menu. Applied to both
+     html and body because fixed-positioned descendants use the initial
+     containing block (html) for their bounds. */
+  overflow-x: hidden;
+}
+
 body {
   @apply text-gray-900 bg-white;
 }

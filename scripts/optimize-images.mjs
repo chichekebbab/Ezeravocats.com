@@ -55,8 +55,11 @@ for (const [src, slug] of Object.entries(SOURCES)) {
   const meta = await sharp(srcPath).metadata();
   const sourceW = meta.width ?? 0;
 
+  // Always emit every width — withoutEnlargement keeps small sources at their
+  // native size, but the file still exists at the labeled URL so the browser's
+  // srcset descriptor never resolves to a 404. The labeled width may be larger
+  // than the actual pixels (minor blur on retina) but that's better than broken.
   for (const w of WIDTHS) {
-    if (w > sourceW * 1.1) continue;
     const dst = path.join(outDir, `${slug}-${w}.webp`);
     await sharp(srcPath)
       .resize({ width: w, withoutEnlargement: true })

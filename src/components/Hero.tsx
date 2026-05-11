@@ -25,7 +25,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative h-screen bg-primary overflow-hidden">
+    <section className="relative min-h-[calc(100dvh-5rem)] bg-primary overflow-hidden">
       <ResponsiveImage
         src="/images/homepage"
         alt=""
@@ -34,17 +34,17 @@ export default function Hero() {
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div className="absolute inset-0 bg-slate-900/55"></div>
-      <div ref={containerRef} className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+      <div ref={containerRef} className="relative min-h-[calc(100dvh-5rem)] max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center py-8 md:py-12">
         <div className="max-w-3xl">
           <img
             src={ezerLogo}
             alt="Logo Ezer Avocats - Cabinet spécialisé en droit des affaires"
             // @ts-ignore - React expects lowercase HTML attributes
             fetchpriority="high"
-            className="hero-reveal mb-8 w-[280px]"
+            className="hero-reveal mb-6 md:mb-8 w-[200px] md:w-[280px]"
           />
-          <p className="hero-reveal text-gray-300 text-sm mb-4 tracking-[0.25em] uppercase">Rigueur. Stratégie. Conviction.</p>
-          <h1 className="hero-reveal text-4xl md:text-6xl font-extralight text-white mb-8 leading-tight">
+          <p className="hero-reveal text-gray-300 text-xs md:text-sm mb-3 md:mb-4 tracking-[0.25em] uppercase">Rigueur. Stratégie. Conviction.</p>
+          <h1 className="hero-reveal text-3xl md:text-6xl font-extralight text-white mb-6 md:mb-8 leading-tight">
             Cabinet d'avocats à Paris dédié au contentieux des affaires
           </h1>
           <Link
