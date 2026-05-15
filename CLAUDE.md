@@ -1,0 +1,91 @@
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+## What this project is
+
+Marketing website for **Ezer Avocats**, a French law firm in Paris (75116) specialising in business litigation. The site's goals are to build trust, generate appointment bookings, and establish SEO authority through legal articles. The brand tone is expert and precise — no superlatives, no startup aesthetics.
+
+## Commands
+
+```bash
+npm run dev              # Vite dev server (HMR, no SSG)
+npm run build            # SSG build + sitemap generation (production)
+npm run build:legacy     # Plain Vite build (no SSG, no sitemap)
+npm run lint             # ESLint
+npm run preview          # Preview the Vite build
+npm run preview:prod     # Preview on port 4173 (strictPort)
+npm run optimize-images  # Regenerate public/images/ from src/assets/images/
+```
+
+There are no tests.
+
+## Architecture
+
+### SSG via vite-react-ssg
+
+The app uses **vite-react-ssg** (not standard Vite + React Router). Key implications:
+
+- `src/main.tsx` exports `createRoot = ViteReactSSG({ routes })` — this is the SSG entry point, not a `ReactDOM.render` call.
+- `src/App.tsx` exports a `routes: RouteRecord[]` array (not a `<Routes>` JSX tree). All routes must be registered here.
+- `<Head>` from `vite-react-ssg` is used (not `react-helmet`). `SeoHead` wraps it.
+- Article routes are discovered at build time in `vite.config.ts` (`getArticleRoutes()`) and added to `ssgOptions.includedRoutes`. When adding new static routes, update **both** `vite.config.ts` and `scripts/generate-sitemap.mjs`.
+
+### Routing & layout
+
+All pages share a single `RootLayout` in `App.tsx` that mounts `<RouteTracker />`, `<ScrollToTop />`, and `<Layout />`. `Layout` renders `Header` → `<Outlet />` → `Footer`.
+
+The layout components actually used are in **`src/components/layout/`** (`Header`, `Navbar`, `Footer`, `Layout`). The root-level `src/components/Footer.tsx`, `Layout.tsx` etc. are legacy stubs — do not modify or use them.
+
+### Articles (Markdown)
+
+Articles live in `src/content/articles/*.md` as plain Markdown with YAML frontmatter:
+
+```yaml
+---
+title: "..."
+description: "..."
+date: 2026-03-27
+domaine: droit-commercial   # see DOMAINE_LABELS in Articles.tsx / ArticlePage.tsx
+slug: my-article-slug
+---
+```
+
+They are imported eagerly at build time via `import.meta.glob` with `eager: true`, so SSG can pre-render each article page. `ArticlePage.tsx` contains a hand-rolled `mdToHtml()` converter (no external Markdown library). Styles for article body text live in the `.article-body` block in `src/index.css`.
+
+### Images
+
+All production images go through a two-step pipeline:
+
+1. Source images live in `src/assets/images/` (originals, not served directly).
+2. Run `npm run optimize-images` to generate multi-resolution WebP variants + JPEG fallback in `public/images/`:
+   - `{name}-400.webp`, `{name}-800.webp`, `{name}-1600.webp`
+   - `{name}-1200.jpg` (fallback)
+
+Use `<ResponsiveImage src="/images/{name}" ... />` in components — never reference `src/assets/images` directly. The `src` prop is a base path without extension or size suffix. Pass `priority={true}` only for the above-the-fold LCP image on each page.
+
+When adding a new source image, add an entry to the `SOURCES` map in `scripts/optimize-images.mjs`, run the script, then commit the generated files in `public/images/`.
+
+### SEO / Schema.org
+
+Every page must include `<SeoHead>` with at minimum `title`, `description`, and `canonical`. JSON-LD schema builders are centralised in `src/lib/schemas.ts` (`legalServiceSchema`, `founderSchema`, `serviceSchema`, `breadcrumbSchema`). Import from there rather than constructing schema objects inline in pages.
+
+Use `SeoHead`'s `preloadImage` prop (base path, e.g. `"/images/homepage"`) to emit the LCP preload `<link>` — this avoids Critters emitting 18 font preloads.
+
+### Scroll animations
+
+`<ScrollReveal>` wraps any element that should animate in on scroll. It uses `useScrollReveal` (IntersectionObserver) and CSS classes defined in `src/index.css` (`.scroll-reveal`, `.revealed`, animation variants). `prefers-reduced-motion` is respected automatically — both in the hook and in the CSS via `@media`.
+
+Use `overflow-x: clip` on `html` (already set) rather than `overflow-x: hidden` — the latter breaks IntersectionObserver on mobile Safari.
+
+## Design constraints (from PRODUCT.md)
+
+- Typography: **EB Garamond** (serif, headings) + **Jost** (sans, body). Both self-hosted in `public/fonts/` via `src/assets/fonts.css`.
+- Brand colour `primary`: `rgb(113, 145, 170)` (steel blue). Defined in `tailwind.config.js`.
+- `md` breakpoint is overridden to `900px` (not Tailwind's default 768px).
+- Avoid gradients, rounded corners, emoji, neon colours, stock icon packs, startup language.
+- WCAG AA compliance required; respect `prefers-reduced-motion`.
+
+## Deployment
+
+Deployed to **Cloudflare Pages**. `public/_headers` sets cache headers and security headers. `public/_redirects` contains the SPA fallback (`/* /index.html 200`). The build output is the `dist/` folder produced by `npm run build`.
