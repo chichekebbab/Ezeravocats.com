@@ -88,4 +88,4 @@ Use `overflow-x: clip` on `html` (already set) rather than `overflow-x: hidden` 
 
 ## Deployment
 
-Deployed to **Cloudflare Pages**. `public/_headers` sets cache headers and security headers. `public/_redirects` contains the SPA fallback (`/* /index.html 200`). The build output is the `dist/` folder produced by `npm run build`.
+Deployed to **Netlify**. `public/_headers` sets cache headers and security headers. `public/_redirects` contains the SPA fallback (`/* /index.html 200`). The build output is the `dist/` folder produced by `npm run build`.
