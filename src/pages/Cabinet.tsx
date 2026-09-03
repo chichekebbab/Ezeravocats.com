@@ -23,7 +23,7 @@ export default function Cabinet() {
   return (
     <div id="top">
       <SeoHead
-        title="Le Cabinet"
+        title="Cabinet d'avocats en droit des affaires, Paris 16e"
         description="Cabinet d'avocats à Paris dédié au contentieux des affaires : droit commercial, droit des sociétés, recouvrement de créances et résolution amiable."
         canonical="/cabinet"
         schema={breadcrumbSchema([

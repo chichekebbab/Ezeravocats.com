@@ -89,7 +89,7 @@ body {
 ────────────────────────────────────────────── */
 
 .article-body {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family: 'Jost', system-ui, -apple-system, sans-serif;
   color: #374151; /* gray-700 */
   font-size: 1.0625rem; /* 17px */
   line-height: 1.85;
@@ -107,7 +107,7 @@ body {
 
 /* Titres H2 */
 .article-body h2 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'EB Garamond', serif;
   font-weight: 300;
   font-size: 1.5rem;      /* 24px */
   color: #111827;         /* gray-900 */
@@ -120,7 +120,7 @@ body {
 
 /* Titres H3 */
 .article-body h3 {
-  font-family: 'Playfair Display', serif;
+  font-family: 'EB Garamond', serif;
   font-weight: 300;
   font-size: 1.2rem;
   color: #1f2937;         /* gray-800 */
@@ -156,6 +156,47 @@ body {
   background-color: #7191aa; /* primary */
 }
 
+/* Listes numérotées */
+.article-body ol {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+.article-body ol li {
+  padding-left: 0.5rem;
+  margin-bottom: 0.625rem;
+  color: #374151;
+  line-height: 1.75;
+}
+
+.article-body ol li::marker {
+  color: #7191aa; /* primary */
+  font-variant-numeric: tabular-nums;
+}
+
+/* Tableaux */
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.5rem 0;
+  font-size: 0.95rem;
+}
+
+.article-body th,
+.article-body td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #e5e7eb; /* gray-200 */
+}
+
+.article-body th {
+  font-weight: 500;
+  color: #111827;
+}
+
 /* Blockquotes */
 .article-body blockquote {
   margin: 2rem 0;
@@ -165,6 +206,14 @@ body {
   color: #4b5563;                 /* gray-600 */
   font-style: normal;
   line-height: 1.75;
+}
+
+.article-body blockquote p {
+  margin: 0;
+}
+
+.article-body blockquote p + p {
+  margin-top: 1rem;
 }
 
 /* Strong */

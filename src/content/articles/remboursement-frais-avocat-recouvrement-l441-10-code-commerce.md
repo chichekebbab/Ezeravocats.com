@@ -11,7 +11,7 @@ slug: remboursement-frais-avocat-recouvrement-l441-10-code-commerce
 
 ## Introduction
 
-Dans les contentieux relatifs au recouvrement de créances opposant deux professionnels, la question de l'indemnisation des frais exposés pour la défense du créancier est souvent réglée à la hâte, par le biais de l'article 700 du Code de procédure civile. Or, ce réflexe est, dans la plupart des cas, une erreur stratégique coûteuse.
+Dans les contentieux relatifs au [recouvrement de créances](/expertises/droit-commercial) opposant deux professionnels, la question de l'indemnisation des frais exposés pour la défense du créancier est souvent réglée à la hâte, par le biais de l'[article 700 du Code de procédure civile](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000045268436). Or, ce réflexe est, dans la plupart des cas, une erreur stratégique coûteuse.
 
 L'article 700 CPC confère en effet au juge un pouvoir souverain d'appréciation, tant sur le principe que sur le *quantum*. En pratique, dans les affaires de recouvrement de créances, les sommes allouées au titre de l'article 700 dépassent rarement 1 000 à 1 500 euros sans commune mesure avec les frais réellement engagés par le créancier pour obtenir le paiement de ce qui lui est dû.
 
@@ -19,7 +19,7 @@ Il existe pourtant un mécanisme légal peu exploité, issu du droit commercial,
 
 ## I. Le cadre légal : ce que dit l'article L441-10, II du Code de commerce
 
-L'article L441-10, II du Code de commerce dispose :
+L'[article L441-10, II du Code de commerce](https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000038414392) dispose :
 
 *« Tout professionnel en situation de retard de paiement est de plein droit débiteur, à l'égard du créancier, d'une indemnité forfaitaire pour frais de recouvrement, dont le montant est fixé par décret. Lorsque les frais de recouvrement exposés sont supérieurs au montant de cette indemnité forfaitaire, le créancier peut demander une indemnisation complémentaire, sur justification. »*
 
@@ -87,7 +87,7 @@ Pour maximiser les chances d'indemnisation intégrale, le créancier doit produi
 
 L'article L441-10, II du Code de commerce est un outil procédural efficace dans les contentieux de recouvrement entre professionnels. Son exploitation systématique, associée à des pièces justificatives complètes, permet d'obtenir le remboursement intégral des frais engagés pour la défense du créancier y compris l'honoraire de résultat, ce qui a été confirmé par la jurisprudence.
 
-Sa mise en œuvre ne présente aucune difficulté particulière ; elle suppose simplement une anticipation dès la constitution du dossier, et une architecture des conclusions qui préserve, à titre subsidiaire, le bénéfice de l'article 700 CPC.
+Sa mise en œuvre ne présente aucune difficulté particulière ; elle suppose simplement une anticipation dès la constitution du dossier (voir, sur les [premières décisions à prendre dans un litige commercial entre entreprises](/articles/litige-commercial-entre-entreprises-premieres-decisions), notre article dédié), et une architecture des conclusions qui préserve, à titre subsidiaire, le bénéfice de l'article 700 CPC.
 
 *Dans un contexte où les coûts de défense pèsent lourdement sur les entreprises qui ne font que solliciter le paiement de sommes qui leurs sont légitimement dues, cet article est, à bien des égards, une mesure de justice élémentaire.*
 

@@ -43,6 +43,7 @@ export default function DroitConsommation() {
         ]}
       />
       <ExpertiseDetail
+        slug="droit-consommation"
         title="Droit de la consommation et de la distribution"
         description="Protection des intérêts et conformité dans les relations avec les consommateurs"
         image="/images/expertises/droit-consommation"

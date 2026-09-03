@@ -46,6 +46,7 @@ export default function DroitNumerique() {
         ]}
       />
       <ExpertiseDetail
+        slug="droit-numerique"
         title="Droits et actifs numériques"
         description="Protection et sécurisation de vos activités numériques"
         image="/images/expertises/droit-numerique"

@@ -45,10 +45,13 @@ export default function SeoHead({
       {canonicalUrl && <link rel="canonical" href={canonicalUrl} />}
       <meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow'} />
 
+      <meta property="og:locale" content="fr_FR" />
       <meta property="og:title" content={finalOgTitle} />
       {finalOgDescription && <meta property="og:description" content={finalOgDescription} />}
       {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
       <meta property="og:image" content={finalOgImage} />
+      <meta name="twitter:title" content={finalOgTitle} />
+      {finalOgDescription && <meta name="twitter:description" content={finalOgDescription} />}
       <meta name="twitter:image" content={finalOgImage} />
 
       {preloadImage && (

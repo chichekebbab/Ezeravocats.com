@@ -49,6 +49,7 @@ export default function DroitConstruction() {
         ]}
       />
       <ExpertiseDetail
+        slug="droit-construction"
         title="Droit de la construction - Risques industriels"
         description="Sécurisation des projets et gestion des litiges techniques"
         image="/images/expertises/droit-construction"

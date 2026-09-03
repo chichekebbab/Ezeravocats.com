@@ -18,7 +18,7 @@ export default function Equipe() {
   return (
     <div id="top">
       <SeoHead
-        title="L'équipe"
+        title="Myriam Douillet Benaroch, avocate au Barreau de Paris"
         description="Maître Myriam Douillet Benaroch, avocate au Barreau de Paris depuis 2019, accompagne les entreprises dans la gestion de leurs litiges commerciaux."
         canonical="/equipe"
         schema={[
