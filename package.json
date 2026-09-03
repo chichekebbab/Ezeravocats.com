@@ -10,8 +10,7 @@
     "optimize-images": "node scripts/optimize-images.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
-    "preview:prod": "vite preview --port 4173 --strictPort",
-    "postinstall": "patch-package"
+    "preview:prod": "vite preview --port 4173 --strictPort"
   },
   "dependencies": {
     "@tailwindcss/typography": "^0.5.19",
@@ -20,7 +19,7 @@
     "marked": "^17.0.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.18.3",
+    "react-router-dom": "^6.30.6",
     "vite-react-ssg": "^0.9.2"
   },
   "devDependencies": {
@@ -35,7 +34,6 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.5.5",
     "globals": "^17.12.0",
-    "patch-package": "^8.0.1",
     "postcss": "^8.5.26",
     "sharp": "^0.35.4",
     "tailwindcss": "^3.4.1",
@@ -45,7 +43,6 @@
     "vite-plugin-compression": "^0.5.1"
   },
   "overrides": {
-    "react-router-dom": "$react-router-dom",
     "beasties": "$beasties"
   }
 }
