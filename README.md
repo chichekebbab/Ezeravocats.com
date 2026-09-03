@@ -1,6 +1,6 @@
 # Ezer Avocats — Site vitrine
 
-Site marketing du cabinet **Ezer Avocats**, spécialisé en contentieux des affaires à Paris (75116). Construit avec React + Vite, pré-rendu en statique (SSG), déployé sur Cloudflare Pages.
+Site marketing du cabinet **Ezer Avocats**, spécialisé en contentieux des affaires à Paris (75116). Construit avec React + Vite, pré-rendu en statique (SSG), déployé sur Netlify.
 
 ## Stack
 
@@ -8,7 +8,7 @@ Site marketing du cabinet **Ezer Avocats**, spécialisé en contentieux des affa
 - **vite-react-ssg** — génération statique des pages au build
 - **Tailwind CSS** — avec `md` breakpoint à 900 px et couleur `primary` personnalisée
 - **EB Garamond** (titres) + **Jost** (corps) — polices auto-hébergées
-- **Cloudflare Pages** — hébergement, cache headers, headers de sécurité
+- **Netlify** — hébergement, deploy previews par PR, cache headers, headers de sécurité
 
 ## Commandes
 
@@ -40,7 +40,7 @@ scripts/
 public/
 ├── images/                  # Images optimisées (générées par optimize-images)
 ├── fonts/                   # Polices auto-hébergées
-├── _headers                 # Cache + headers de sécurité Cloudflare
+├── _headers                 # Cache + headers de sécurité (format Netlify)
 └── _redirects               # Fallback SPA
 ```
 
