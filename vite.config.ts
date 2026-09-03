@@ -4,19 +4,6 @@ import { readdirSync } from 'fs';
 import { join } from 'path';
 
 import compression from 'vite-plugin-compression';
-import imagePresets from 'vite-plugin-image-presets';
-
-const sharpPreset = imagePresets({
-  webp: {
-    // @ts-ignore - Typings mismatch with plugin version
-    encodeOptions: {
-      quality: 80,
-      lossless: false,
-      speed: 4,
-    }
-  },
-});
-
 // Collect article slugs at build time for SSG pre-rendering
 function getArticleRoutes(): string[] {
   try {
@@ -33,7 +20,6 @@ function getArticleRoutes(): string[] {
 export default defineConfig({
   plugins: [
     react(),
-    sharpPreset,
     compression({
       algorithm: 'brotliCompress',
       ext: '.br',
@@ -49,8 +35,8 @@ export default defineConfig({
   ssgOptions: {
     script: 'async',
     formatting: 'minify',
-    crittersOptions: {
-      // Critters auto-adds a <link rel="preload"> for every @font-face it finds
+    beastiesOptions: {
+      // Beasties auto-adds a <link rel="preload"> for every @font-face it finds
       // in the inlined critical CSS — that's 18 woff2 downloads on mobile.
       // We manage font preloads manually in index.html (2 preloads only).
       preloadFonts: false,
