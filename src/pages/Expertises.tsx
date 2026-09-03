@@ -101,7 +101,7 @@ export default function Expertises() {
   return (
     <div id="top">
       <SeoHead
-        title="Nos expertises"
+        title="Nos expertises en contentieux commercial et droit des sociétés"
         description="Six domaines d'intervention en contentieux des affaires : droit commercial, droit des sociétés, droit du numérique, droit de la construction, médiation."
         canonical="/expertises"
         schema={breadcrumbSchema([

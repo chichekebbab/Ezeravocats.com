@@ -59,6 +59,8 @@ export default defineConfig({
       '/mentions-legales',
       '/articles',
       ...getArticleRoutes(),
+      // Pre-rendered to dist/404.html: Netlify serves it with a real 404 status.
+      '/404',
     ],
   },
   build: {

@@ -4,8 +4,11 @@ import { ArrowUpRight } from 'lucide-react';
 import PageHeader from './PageHeader';
 import ResponsiveImage from './ResponsiveImage';
 import ScrollReveal from './ScrollReveal';
+import { getArticlesByDomaine } from '../lib/articles';
 
 interface ExpertiseDetailProps {
+  /** Expertise slug, e.g. "droit-commercial". Also matches the `domaine` of related articles. */
+  slug: string;
   title: string;
   description: string;
   /** Base path of the optimized image set, e.g. "/images/expertises/droit-commercial". */
@@ -13,7 +16,8 @@ interface ExpertiseDetailProps {
   content: React.ReactNode;
 }
 
-export default function ExpertiseDetail({ title, description, image, content }: ExpertiseDetailProps) {
+export default function ExpertiseDetail({ slug, title, description, image, content }: ExpertiseDetailProps) {
+  const articles = getArticlesByDomaine(slug);
   return (
     <div id="top" className="min-h-screen flex flex-col">
       <PageHeader
@@ -42,6 +46,34 @@ export default function ExpertiseDetail({ title, description, image, content }: 
           </ScrollReveal>
         </div>
       </div>
+
+      {/* Articles on this topic */}
+      {articles.length > 0 && (
+        <ScrollReveal animation="fade-in">
+          <section aria-labelledby="articles-domaine" className="border-t border-gray-100">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-20">
+              <p className="text-xs uppercase tracking-[0.2em] text-gray-400 mb-5">
+                Pour aller plus loin
+              </p>
+              <h2 id="articles-domaine" className="font-serif text-2xl md:text-3xl font-light text-gray-900 leading-snug mb-8">
+                Nos articles sur le sujet
+              </h2>
+              <ul className="divide-y divide-gray-100 border-y border-gray-100 max-w-3xl">
+                {articles.map(({ meta }) => (
+                  <li key={meta.slug}>
+                    <Link to={`/articles/${meta.slug}`} className="group block py-6">
+                      <p className="font-serif text-lg md:text-xl text-gray-900 group-hover:text-primary-dark transition-colors duration-200 leading-snug">
+                        {meta.title}
+                      </p>
+                      <p className="text-sm text-gray-500 font-light mt-2 max-w-2xl">{meta.description}</p>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </section>
+        </ScrollReveal>
+      )}
 
       {/* Conversion strip */}
       <ScrollReveal animation="fade-in">

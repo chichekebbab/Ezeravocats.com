@@ -51,7 +51,13 @@ slug: my-article-slug
 ---
 ```
 
-They are imported eagerly at build time via `import.meta.glob` with `eager: true`, so SSG can pre-render each article page. `ArticlePage.tsx` contains a hand-rolled `mdToHtml()` converter (no external Markdown library). Styles for article body text live in the `.article-body` block in `src/index.css`.
+Optional frontmatter: `updated: YYYY-MM-DD` (shown as "Mis à jour le", used for `dateModified` and the sitemap `lastmod`).
+
+All article loading lives in `src/lib/articles.ts`: eager `import.meta.glob`, frontmatter parsing, `mdToHtml()` (via `marked`, synchronous so SSG and hydration produce the same HTML), `extractFaq()` and lookups by slug/domaine. `Articles.tsx`, `ArticlePage.tsx` and `ExpertiseDetail.tsx` (related articles) all import from there. Styles for article body text live in the `.article-body` block in `src/index.css`.
+
+Markdown links work (`[texte](/expertises/droit-commercial)` for internal links, absolute URLs for Légifrance). A trailing `## Questions fréquentes...` section made of `**Question ?**` paragraphs followed by their answers is turned into a `FAQPage` JSON-LD schema automatically.
+
+Article JSON-LD comes from `articleSchema()` / `faqSchema()` in `src/lib/schemas.ts`.
 
 ### Images
 
@@ -92,7 +98,8 @@ Deployed to **Netlify** (site `ezeravocats`, production URL `https://www.ezeravo
 
 - Every pull request gets a **deploy preview** (`https://deploy-preview-<PR>--ezeravocats.netlify.app`), reported as GitHub checks (`netlify/ezeravocats/deploy-preview`). Merging to `main` deploys production. Production deploys do not report a commit status on GitHub — verify by comparing asset hashes on the live site with the deploy preview.
 - **Node version** is pinned by `.node-version` (22). Vite 7 requires Node ≥ 20.19 or ≥ 22.12; on Node 18 the build fails with `crypto.hash is not a function`.
-- `public/_headers` sets cache and security headers, `public/_redirects` contains the SPA fallback (`/* /index.html 200`). Both use the Netlify format and are copied verbatim into `dist/`.
+- `public/_headers` sets cache and security headers. `public/_redirects` deliberately contains **no** SPA fallback: every route is pre-rendered, and `/404` is pre-rendered to `dist/404.html`, which Netlify serves with a real 404 status for unknown URLs. A `/* /index.html 200` rule would turn every unknown URL into a soft 404 serving the homepage HTML. Both files use the Netlify format and are copied verbatim into `dist/`.
+- `scripts/generate-sitemap.mjs` sets `<lastmod>` from the last git commit touching each page's source files (articles use their `updated`/`date` frontmatter). Excluded from the sitemap: `/mentions-legales`, `/404`.
 
 ## Dependency constraints
 

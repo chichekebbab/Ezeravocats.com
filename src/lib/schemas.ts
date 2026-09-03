@@ -6,6 +6,7 @@ const LOGO_URL = `${SITE_URL}/apple-touch-icon.png`;
 const DEFAULT_OG = `${SITE_URL}/og-default.jpg`;
 
 export const ORG_ID = `${SITE_URL}/#legalservice`;
+export const FOUNDER_ID = `${SITE_URL}/equipe#myriam-douillet`;
 
 export const legalServiceSchema = {
   '@context': 'https://schema.org',
@@ -43,7 +44,7 @@ export const legalServiceSchema = {
 export const founderSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${SITE_URL}/equipe#myriam-douillet`,
+  '@id': FOUNDER_ID,
   name: 'Myriam Douillet Benaroch',
   givenName: 'Myriam',
   familyName: 'Douillet Benaroch',
@@ -85,6 +86,54 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
       position: idx + 1,
       name: item.name,
       item: `${SITE_URL}${item.path}`,
+    })),
+  };
+}
+
+export function articleSchema(opts: {
+  title: string;
+  description: string;
+  slug: string;
+  datePublished: string;
+  dateModified: string;
+  section?: string | null;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: opts.title,
+    description: opts.description,
+    inLanguage: 'fr-FR',
+    ...(opts.section ? { articleSection: opts.section } : {}),
+    image: [DEFAULT_OG],
+    datePublished: opts.datePublished,
+    dateModified: opts.dateModified,
+    author: {
+      '@type': 'Person',
+      '@id': FOUNDER_ID,
+      name: 'Myriam Douillet Benaroch',
+      jobTitle: 'Avocate au Barreau de Paris',
+      url: `${SITE_URL}/equipe`,
+    },
+    publisher: {
+      '@type': 'LegalService',
+      '@id': ORG_ID,
+      name: 'Ezer Avocats',
+      url: SITE_URL,
+      logo: { '@type': 'ImageObject', url: LOGO_URL },
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/articles/${opts.slug}` },
+  };
+}
+
+export function faqSchema(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: { '@type': 'Answer', text: item.answer },
     })),
   };
 }

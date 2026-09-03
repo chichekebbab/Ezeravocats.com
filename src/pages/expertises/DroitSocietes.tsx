@@ -46,6 +46,7 @@ export default function DroitSocietes() {
         ]}
       />
       <ExpertiseDetail
+        slug="droit-societes"
         title="Droit des sociétés"
         description="Résolution des litiges complexes et protection des intérêts sociaux"
         image="/images/expertises/droit-societes"

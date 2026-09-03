@@ -64,7 +64,8 @@ export default function Home() {
   return (
     <>
       <SeoHead
-        title="Ezer Avocats"
+        title="Avocat en contentieux des affaires à Paris"
+        ogTitle="Ezer Avocats | Avocat en contentieux des affaires à Paris"
         description="Cabinet d'avocats spécialisé en droit des affaires et contentieux commercial à Paris. Droit commercial, droit des sociétés, recouvrement de créances."
         canonical="/"
         preloadImage="/images/homepage"

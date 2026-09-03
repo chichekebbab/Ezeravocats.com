@@ -43,6 +43,7 @@ export default function ModesAlternatifs() {
         ]}
       />
       <ExpertiseDetail
+        slug="modes-alternatifs"
         title="Modes alternatifs de règlements des litiges"
         description="Solutions amiables et efficaces pour la résolution des différends"
         image="/images/expertises/modes-alternatifs"

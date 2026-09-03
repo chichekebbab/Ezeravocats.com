@@ -1,1 +1,4 @@
-/*    /index.html   200
+# Every route is pre-rendered by vite-react-ssg, so no SPA fallback is needed.
+# Unknown URLs get dist/404.html with a real 404 status (Netlify default).
+# A `/* /index.html 200` rule here would turn every unknown URL into a soft 404
+# that serves the homepage HTML to search engines.

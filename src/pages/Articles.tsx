@@ -2,57 +2,31 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import SeoHead from '../components/SeoHead';
 import PageHeader from '../components/PageHeader';
+import { getAllArticles, domaineLabel } from '../lib/articles';
+import { breadcrumbSchema, ORG_ID, SITE_URL } from '../lib/schemas';
 
-const articleModules = import.meta.glob('../content/articles/*.md', {
-  query: '?raw',
-  import: 'default',
-  eager: true,
-}) as Record<string, string>;
-
-interface ArticleMeta {
-  title: string; description: string; date: string; domaine: string; slug: string;
-}
-
-function parseFrontmatter(raw: string): ArticleMeta {
-  // Normalize line endings: Windows-saved files use CRLF, the regex below expects LF.
-  const normalized = raw.replace(/\r\n/g, '\n');
-  const match = normalized.match(/^---\n([\s\S]*?)\n---/);
-  if (!match) return {} as ArticleMeta;
-  const yaml = match[1];
-  const get = (key: string) => {
-    const m = yaml.match(new RegExp(`^${key}:\\s*"?([^"\\n]+?)"?\\s*$`, 'm'));
-    return m ? m[1].trim() : '';
-  };
-  return { title: get('title'), description: get('description'), date: get('date'), domaine: get('domaine'), slug: get('slug') };
-}
-
-const DOMAINE_LABELS: Record<string, string> = {
-  'droit-commercial': 'Droit commercial',
-  'droit-societes': 'Droit des sociétés',
-  'droit-immobilier': 'Droit immobilier',
-  'droit-social': 'Droit social',
-  'droit-numerique': 'Droit du numérique',
-  'droit-construction': 'Droit de la construction',
-};
-
-const articles: ArticleMeta[] = Object.values(articleModules)
-  .map((raw) => parseFrontmatter(raw))
-  .filter((m) => m.slug)
-  .sort((a, b) => (a.date < b.date ? 1 : -1));
+const articles = getAllArticles();
 
 export default function Articles() {
   return (
     <>
       <SeoHead
-        title="Articles juridiques"
+        title="Articles en droit des affaires et contentieux commercial"
         description="Analyses et décryptages juridiques par Ezer Avocats : droit commercial, droit des sociétés, contentieux et stratégie procédurale."
         canonical="/articles"
-        schema={{
-          '@context': 'https://schema.org', '@type': 'CollectionPage',
-          name: 'Articles juridiques | Ezer Avocats',
-          url: 'https://www.ezeravocats.com/articles',
-          publisher: { '@type': 'LegalService', name: 'Ezer Avocats', url: 'https://www.ezeravocats.com' },
-        }}
+        schema={[
+          {
+            '@context': 'https://schema.org', '@type': 'CollectionPage',
+            name: 'Articles juridiques | Ezer Avocats',
+            url: `${SITE_URL}/articles`,
+            inLanguage: 'fr-FR',
+            publisher: { '@id': ORG_ID },
+          },
+          breadcrumbSchema([
+            { name: 'Accueil', path: '/' },
+            { name: 'Articles', path: '/articles' },
+          ]),
+        ]}
       />
 
       <PageHeader
@@ -68,31 +42,31 @@ export default function Articles() {
         )}
 
         <ul className="space-y-0">
-          {articles.map((article, idx) => {
-            const dateFormatted = article.date
-              ? new Date(article.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
+          {articles.map(({ meta }, idx) => {
+            const dateFormatted = meta.date
+              ? new Date(meta.date).toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })
               : null;
-            const domaineLabel = article.domaine ? (DOMAINE_LABELS[article.domaine] ?? article.domaine) : null;
+            const label = domaineLabel(meta.domaine);
 
             return (
-              <li key={article.slug}>
+              <li key={meta.slug}>
                 {/* Séparateur entre cartes (pas avant la première) */}
                 {idx > 0 && <div className="border-t border-gray-100" />}
 
                 <Link
-                  to={`/articles/${article.slug}`}
+                  to={`/articles/${meta.slug}`}
                   className="group block py-10 md:py-12"
-                  aria-label={`Lire l'article : ${article.title}`}
+                  aria-label={`Lire l'article : ${meta.title}`}
                 >
                   {/* Méta : domaine + date */}
                   <div className="flex flex-wrap items-center gap-3 mb-4">
-                    {domaineLabel && (
+                    {label && (
                       <span className="inline-flex items-center px-2.5 py-0.5 text-[11px] font-medium tracking-[0.12em] bg-primary/10 text-primary-dark border border-primary/20 uppercase">
-                        {domaineLabel}
+                        {label}
                       </span>
                     )}
                     {dateFormatted && (
-                      <time dateTime={article.date} className="text-xs text-gray-400 tracking-wide">
+                      <time dateTime={meta.date} className="text-xs text-gray-400 tracking-wide">
                         {dateFormatted}
                       </time>
                     )}
@@ -100,12 +74,12 @@ export default function Articles() {
 
                   {/* Titre */}
                   <h2 className="font-serif text-xl md:text-2xl font-light text-gray-900 mb-3 group-hover:text-primary-dark transition-colors duration-200 leading-snug">
-                    {article.title}
+                    {meta.title}
                   </h2>
 
                   {/* Description */}
                   <p className="text-gray-500 font-light leading-relaxed mb-5 max-w-2xl text-base">
-                    {article.description}
+                    {meta.description}
                   </p>
 
                   {/* CTA */}
