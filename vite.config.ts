@@ -33,7 +33,10 @@ export default defineConfig({
   ],
 
   ssgOptions: {
-    script: 'async',
+    // 'defer' (not 'async'): the client entry looks up #root as soon as the module
+    // executes. Vite injects the tag in <head>, so an async module can run before
+    // <body> is parsed and silently skip hydration ("Root container not found").
+    script: 'defer',
     formatting: 'minify',
     beastiesOptions: {
       // Beasties auto-adds a <link rel="preload"> for every @font-face it finds
