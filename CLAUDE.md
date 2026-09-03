@@ -88,4 +88,9 @@ Use `overflow-x: clip` on `html` (already set) rather than `overflow-x: hidden` 
 
 ## Deployment
 
-Deployed to **Cloudflare Pages**. `public/_headers` sets cache headers and security headers. `public/_redirects` contains the SPA fallback (`/* /index.html 200`). The build output is the `dist/` folder produced by `npm run build`.
+Deployed to **Netlify** (site `ezeravocats`, production URL `https://www.ezeravocats.com`). Build command `npm run build`, publish directory `dist/`, both configured in the Netlify UI (no `netlify.toml`).
+
+- Every pull request gets a **deploy preview** (`https://deploy-preview-<PR>--ezeravocats.netlify.app`), reported as GitHub checks (`netlify/ezeravocats/deploy-preview`). Merging to `main` deploys production. Production deploys do not report a commit status on GitHub — verify by comparing asset hashes on the live site with the deploy preview.
+- **Node version** is pinned by `.node-version` (22). Vite 7 requires Node ≥ 20.19 or ≥ 22.12; on Node 18 the build fails with `crypto.hash is not a function`.
+- `public/_headers` sets cache and security headers, `public/_redirects` contains the SPA fallback (`/* /index.html 200`). Both use the Netlify format and are copied verbatim into `dist/`.
+- `npm install` runs `patch-package` (postinstall) to apply `patches/vite-react-ssg+0.9.2.patch`, which lets `vite-react-ssg` work with `react-router-dom` 7. `package.json` has npm `overrides` for `react-router-dom` and `beasties` because `vite-react-ssg` still declares older peer ranges. Do not downgrade to `react-router-dom` 6 (its open-redirect advisories are only fixed in 7).
