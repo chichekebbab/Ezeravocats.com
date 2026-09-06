@@ -105,6 +105,22 @@ body {
   color: #374151;
 }
 
+/* Justification du corps de texte.
+   La cesure automatique est indispensable : sans elle, le francais (mots longs,
+   espaces insecables avant : ; ? !) produit des lignes tres irregulieres.
+   Elle s'appuie sur le lang="fr" declare sur <html>.
+   Titres exclus : justifier un titre sur deux lignes etire la premiere. */
+.article-body p,
+.article-body li,
+.article-body blockquote {
+  text-align: justify;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  /* mot d'au moins 6 lettres, 3 avant et 3 apres la cesure */
+  hyphenate-limit-chars: 6 3 3;
+}
+
 /* Titres H2 */
 .article-body h2 {
   font-family: 'EB Garamond', serif;
