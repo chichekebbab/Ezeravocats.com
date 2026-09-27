@@ -153,7 +153,7 @@ export default function Home() {
                 <div className="relative h-[600px] overflow-hidden">
                   <ResponsiveImage
                     src="/images/myriam-v2"
-                    alt="Maître Myriam Douillet Benaroch dans son cabinet"
+                    alt="Maître Myriam Douillet dans son cabinet"
                     sizes="(max-width: 1024px) 100vw, 50vw"
                     width={800}
                     height={1000}

@@ -108,7 +108,7 @@ export default function ArticlePage() {
           <p className="mt-6 text-sm text-gray-500 font-light">
             Par{' '}
             <Link to="/equipe" rel="author" className="text-gray-800 hover:text-primary-dark underline underline-offset-4 transition-colors">
-              Maître Myriam Douillet Benaroch
+              Maître Myriam Douillet
             </Link>
             , avocate au Barreau de Paris
           </p>
@@ -132,7 +132,7 @@ export default function ArticlePage() {
             </h2>
             <p className="text-sm text-gray-600 font-light leading-relaxed">
               <Link to="/equipe" className="text-gray-900 font-normal hover:text-primary-dark transition-colors">
-                Myriam Douillet Benaroch
+                Myriam Douillet
               </Link>{' '}
               est avocate au Barreau de Paris depuis 2019 et fondatrice d'Ezer Avocats, cabinet dédié au
               contentieux des affaires. Elle accompagne les entreprises dans leurs litiges commerciaux,

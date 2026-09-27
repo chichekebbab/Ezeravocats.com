@@ -23,12 +23,12 @@ export default function MentionsLegales() {
             <h2 className="text-2xl font-semibold mb-4">1. Informations générales</h2>
             <p>Conformément à l'article 6 de la loi n° 2004-575 du 21 juin 2004 pour la confiance dans l'économie numérique :</p>
             <ul>
-              <li>Propriétaire : Myriam Douillet Benaroch (EI)</li>
-              <li>Conception et création : Myriam Douillet Benaroch</li>
-              <li>Responsable de publication : Myriam Douillet Benaroch <a href="mailto:myriam.douillet@ezeravocats.com" className="text-primary hover-underline">myriam.douillet@ezeravocats.com</a></li>
-              <li>Webmaster : Myriam Douillet Benaroch</li>
+              <li>Propriétaire : Myriam Douillet (EI)</li>
+              <li>Conception et création : Myriam Douillet</li>
+              <li>Responsable de publication : Myriam Douillet <a href="mailto:myriam.douillet@ezeravocats.com" className="text-primary hover-underline">myriam.douillet@ezeravocats.com</a></li>
+              <li>Webmaster : Myriam Douillet</li>
               <li>Hébergeur : OVH, OVH RCS Roubaix - Tourcoing 424 761 419 00045 Code APE 6202A. Siège social : 2 rue Kellermann - 59100 Roubaix – France. N° TVA : FR 22 424 761 419</li>
-              <li>Crédits : Myriam Douillet Benaroch</li>
+              <li>Crédits : Myriam Douillet</li>
             </ul>
 
             <h2 className="text-2xl font-semibold mt-8 mb-4">2. Utilisation du site</h2>

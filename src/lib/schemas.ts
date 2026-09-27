@@ -45,9 +45,9 @@ export const founderSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
   '@id': FOUNDER_ID,
-  name: 'Myriam Douillet Benaroch',
+  name: 'Myriam Douillet',
   givenName: 'Myriam',
-  familyName: 'Douillet Benaroch',
+  familyName: 'Douillet',
   jobTitle: 'Avocate au Barreau de Paris',
   worksFor: { '@id': ORG_ID },
   alumniOf: [
@@ -111,7 +111,7 @@ export function articleSchema(opts: {
     author: {
       '@type': 'Person',
       '@id': FOUNDER_ID,
-      name: 'Myriam Douillet Benaroch',
+      name: 'Myriam Douillet',
       jobTitle: 'Avocate au Barreau de Paris',
       url: `${SITE_URL}/equipe`,
     },

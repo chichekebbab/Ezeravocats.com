@@ -52,7 +52,7 @@ export default function Contact() {
               <ZcalEmbed
                 src="https://zcal.co/i/eaFLKrTt?embed=1&embedType=iframe"
                 height={800}
-                title="Prendre rendez-vous avec Maître Myriam Douillet Benaroch"
+                title="Prendre rendez-vous avec Maître Myriam Douillet"
               />
             </div>
           </ScrollReveal>

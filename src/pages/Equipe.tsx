@@ -18,8 +18,8 @@ export default function Equipe() {
   return (
     <div id="top">
       <SeoHead
-        title="Myriam Douillet Benaroch, avocate au Barreau de Paris"
-        description="Maître Myriam Douillet Benaroch, avocate au Barreau de Paris depuis 2019, accompagne les entreprises dans la gestion de leurs litiges commerciaux."
+        title="Myriam Douillet, avocate au Barreau de Paris"
+        description="Maître Myriam Douillet, avocate au Barreau de Paris depuis 2019, accompagne les entreprises dans la gestion de leurs litiges commerciaux."
         canonical="/equipe"
         schema={[
           founderSchema,
@@ -43,7 +43,7 @@ export default function Equipe() {
               <div>
                 <SectionTitle
                   subtitle=" "
-                  title="Maître Myriam Douillet Benaroch"
+                  title="Maître Myriam Douillet"
                   alignment="left"
                 />
                 <div className="text-gray-600 mb-3 space-y-4">
@@ -69,7 +69,7 @@ export default function Equipe() {
               <div className="relative h-[600px] overflow-hidden">
                 <ResponsiveImage
                   src="/images/myriam-v2"
-                  alt="Maître Myriam Douillet Benaroch dans son cabinet"
+                  alt="Maître Myriam Douillet dans son cabinet"
                   sizes="(max-width: 1024px) 100vw, 50vw"
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 hover:scale-105"
                 />
